@@ -12,7 +12,7 @@ As working with NLP, we plan to use a [transformers based-model](https://github.
 Considering the transformer framework, we plan to utilize a wide range of pre-trained models that have achieved state-of-the-art performance on a variety of NLP tasks. As we are working on a tweet classification project, we may be able to achieve very high accuracy by fine-tuning one of these pre-trained models on our dataset.
 
 4. **Data:**
-We are using the Kaggle dataset of [Corona tweets for text classication] (https://www.kaggle.com/datasets/datatattle/covid-19-nlp-text-classification). The tweets have been pulled from Twitter and manual tagging has been done.
+We are using the Kaggle dataset of [Corona tweets for text classication](https://www.kaggle.com/datasets/datatattle/covid-19-nlp-text-classification). The tweets have been pulled from Twitter and manual tagging has been done.
 
 5. **Deep Learning models expected to use:**
 We expect to use the transformers framework which includes highly optimized implementations of many popular NLP models, including BERT, GPT, and XLNet. These models are trained on large datasets and can process text very efficiently, making them well-suited for tasks such as our tweet classification.
