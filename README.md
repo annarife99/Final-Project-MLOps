@@ -1,7 +1,9 @@
 Natural Language Processing for x:Final Project for Machine Learning Operations
 ==============================
 This repository contains the project work of the Machine Learning Operations Course from DTU carried out by group 43. We are Alex Abades(s212784), Lluis Colomer(s213237), Anna Rifé (s212487). 
-NLP MLOperation Course(DTU)
+
+Overall goal of the project
+------------
 
 Project Organization
 ------------
