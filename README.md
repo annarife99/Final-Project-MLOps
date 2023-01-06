@@ -1,9 +1,13 @@
-Natural Language Processing for x:Final Project for Machine Learning Operations
+Natural Language Processing for Corona tweets classification:Final Project for Machine Learning Operations
 ==============================
 This repository contains the project work of the Machine Learning Operations Course from DTU carried out by group 43. We are Alex Abades(s212784), Lluis Colomer(s213237), Anna Rifé (s212487). 
 
-Overall goal of the project
-------------
+1. **Goal of the project**
+The goal of the project is to solve a classification task to determine whether a tweet being published during Corona is positive, negative or neutral by using different natural language processing (NLP). 
+
+2. **Frameworks being used**
+As working with NLP, we plan to use a [transformers based-model](https://github.com/huggingface/transformers) to classify the data.
+
 
 Project Organization
 ------------
