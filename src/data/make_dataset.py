@@ -3,6 +3,9 @@ import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
+import os
+import hydra
+
 
 
 @click.command()
@@ -13,7 +16,7 @@ def main(input_filepath, output_filepath):
         cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info('Downloading dataset from Kaggle')
 
 
 if __name__ == '__main__':

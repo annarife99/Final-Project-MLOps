@@ -47,6 +47,7 @@ https://repo.anaconda.com/pkgs/main/osx-64/libtiff-4.4.0-h2cd0358_2.conda
 https://repo.anaconda.com/pkgs/main/osx-64/python-3.10.8-h218abb5_1.conda
 https://repo.anaconda.com/pkgs/main/osx-64/certifi-2022.12.7-py310hecd8cb5_0.conda
 https://repo.anaconda.com/pkgs/main/noarch/charset-normalizer-2.0.4-pyhd3eb1b0_0.conda
+https://repo.anaconda.com/pkgs/main/osx-64/click-8.0.4-py310hecd8cb5_0.conda
 https://repo.anaconda.com/pkgs/main/noarch/cycler-0.11.0-pyhd3eb1b0_0.conda
 https://repo.anaconda.com/pkgs/main/noarch/flit-core-3.6.0-pyhd3eb1b0_0.conda
 https://repo.anaconda.com/pkgs/main/osx-64/gnutls-3.6.15-hed9c0bf_0.conda
@@ -70,6 +71,7 @@ https://repo.anaconda.com/pkgs/main/noarch/fonttools-4.25.0-pyhd3eb1b0_0.conda
 https://repo.anaconda.com/pkgs/main/osx-64/mkl-service-2.4.0-py310hca72f7f_0.conda
 https://repo.anaconda.com/pkgs/main/osx-64/pillow-9.3.0-py310h81888ad_1.conda
 https://repo.anaconda.com/pkgs/main/noarch/python-dateutil-2.8.2-pyhd3eb1b0_0.conda
+https://repo.anaconda.com/pkgs/main/osx-64/python-dotenv-0.21.0-py310hecd8cb5_0.conda
 https://repo.anaconda.com/pkgs/main/osx-64/setuptools-65.5.0-py310hecd8cb5_0.conda
 https://repo.anaconda.com/pkgs/main/osx-64/typing_extensions-4.4.0-py310hecd8cb5_0.conda
 https://repo.anaconda.com/pkgs/main/osx-64/brotlipy-0.7.0-py310hca72f7f_1002.conda
