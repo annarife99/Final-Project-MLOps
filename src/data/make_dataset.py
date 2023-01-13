@@ -9,7 +9,7 @@ import pandas as pd
 import torch 
 import datasets
 from datasets import Dataset , Sequence , Value , Features , ClassLabel , DatasetDict
-#from features.clean_functions import preprocessBatch
+from clean_functions import preprocessBatch
 
 
 @click.command()
@@ -66,7 +66,7 @@ def main():
     print(dataset_sentAnalysis)
 
     #PREPROCESS
-    #dataset_sentAnalysis_preprocessed = dataset_sentAnalysis.map(preprocessBatch, batched=True, batch_size=32)
+    dataset_sentAnalysis_preprocessed = dataset_sentAnalysis.map(preprocessBatch, batched=True, batch_size=32)
 
 
 
