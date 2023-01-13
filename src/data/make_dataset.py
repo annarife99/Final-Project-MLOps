@@ -10,6 +10,7 @@ import torch
 import datasets
 from datasets import Dataset , Sequence , Value , Features , ClassLabel , DatasetDict
 from clean_functions import preprocessBatch
+from transformers import AutoTokenizer
 
 
 @click.command()
@@ -68,11 +69,20 @@ def main():
     #PREPROCESS
     dataset_sentAnalysis_preprocessed = dataset_sentAnalysis.map(preprocessBatch, batched=True, batch_size=32)
 
+    
+    #TOKENIZER
+    models = ["distilbert-base-uncased", "bert-base-uncased", "bert-base-cased"]
+    modelName = models[2] 
+    tokenizer = AutoTokenizer.from_pretrained(modelName)
 
-
-    #torch.save(train_dic, path+'/data/processed/train.pth')
-    #torch.save(test_dic, path+'/data/processed/test.pth')
-
+    max_len = 128
+    def tokenize(batch):
+        return tokenizer(batch["text"], pad_to_max_length=True, truncation=True, max_length=max_len)
+    
+    dataset_sentAnalysis_encoded = dataset_sentAnalysis_preprocessed.map(tokenize, batched=True, batch_size=32)
+    
+    torch.save(dataset_sentAnalysis_encoded, path+'/data/processed/dataset.pth')
+    
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
