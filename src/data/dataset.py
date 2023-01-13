@@ -11,16 +11,17 @@ import numpy as np
 class CoronaTweets(Dataset):
     def __init__(self, type: str = "test") -> None:
         if type == "train":
-            file_tweets = "/data/processed/Corona_NLP_train.csv"
+            file_tweets = "/data/processed/train.pth"
         elif type == "test":
-            file_tweets =  "/data/processed/Corona_NLP_test.csv"
+            file_tweets =  "/data/processed/test.pth"
         else:
             raise Exception(f"Unknown Dataset type: {type}")
         
         self.path=os.getcwd()
-        self.pd_file = pd.read_csv(self.path+file_tweets)
-        self.tweets = self.pd_file['OriginalTweet']
-        self.labels = self.pd_file['Sentiment']
+        self.file = torch.load(self.path+file_tweets)
+        self.tweets = self.file['tweets']
+        self.labels = self.file['labels']
+        
 
         assert len(self.tweets) == len(
             self.labels
@@ -33,10 +34,10 @@ class CoronaTweets(Dataset):
             self.labels[idx],
         )
 
-        
-        
-tweets = CoronaTweets("test")
-print(np.unique(tweets.labels))
+            
+data_tweets = CoronaTweets("test")
+print(data_tweets[5])
+
 
 
 
