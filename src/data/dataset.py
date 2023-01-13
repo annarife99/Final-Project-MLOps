@@ -34,10 +34,9 @@ class CoronaTweets(Dataset):
             self.labels[idx],
         )
 
-        
-     
-#data_tweets = CoronaTweets("test")
-
+            
+data_tweets = CoronaTweets("test")
+print(data_tweets[5])
 
 
 
