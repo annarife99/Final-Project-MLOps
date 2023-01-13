@@ -37,6 +37,8 @@ def main():
     pd_file_train['Sentiment']=pd_file_train['Sentiment'].astype(int)
     pd_file_train = pd_file_train.reset_index(drop=True)
     pd_file_train.isnull().sum()
+    pd_file_train.to_csv(path+'/data/processed/df_train.csv')
+
 
     pd_file_test = pd_file_test.drop(labels=['UserName', 'ScreenName', 'Location', 'TweetAt'], axis=1)
     pd_file_test.drop_duplicates(subset='OriginalTweet',inplace=True)
@@ -44,6 +46,7 @@ def main():
     pd_file_test['Sentiment']=pd_file_test['Sentiment'].replace({'Neutral':2, 'Positive':3,'Extremely Positive':4, 'Extremely Negative':0,'Negative':1})
     pd_file_test['Sentiment']=pd_file_test['Sentiment'].astype(int)
     pd_file_test = pd_file_test.reset_index(drop=True)
+    pd_file_test.to_csv(path+'/data/processed/df_test.csv')
     print(pd_file_train.shape , pd_file_test.shape)
 
     def createDataset(df,textCol, labelCol):

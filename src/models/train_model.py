@@ -9,10 +9,15 @@ import torch
 from dotenv import find_dotenv, load_dotenv
 from omegaconf import DictConfig
 from pytorch_lightning import Trainer
+import pandas as pd
+import numpy as np
+from transformers import AutoTokenizer
+from datasets import Dataset , Sequence , Value , Features , ClassLabel , DatasetDict
 
-from src.data.dataset import CoronaTweets
-from src.models.model import NLPModel
+from model import NLPModel
 
+from src.data.dataset import CoronaTweets, create_dataloader
+from src.data.clean_functions import preprocessText
 
 #@hydra.main(config_path="../../config", config_name="default_config.yaml")
 def main():#config: DictConfig):
@@ -36,9 +41,25 @@ def main():#config: DictConfig):
     else:
         print("Using CPU for training")"""
 
-    data_module = CoronaTweets("train")
+    batch_size = 8
+    models = ["distilbert-base-uncased", "bert-base-uncased", "bert-base-cased"]
+    modelName = models[2] 
+    max_len = 128
+    tokenizer = AutoTokenizer.from_pretrained(modelName)
+    df_train= pd.read_csv('data/processed/df_train.csv')
+    df_test= pd.read_csv('data/processed/df_test.csv')
+
+    train_data_loader = create_dataloader(df_train, tokenizer, max_len, batch_size)
+    train_data_loader = create_dataloader(df_test, tokenizer, max_len, batch_size)
+
+    dataset_sentAnalysis = DatasetDict()
+    dataset_sentAnalysis["train"] = train_data_loader
+    dataset_sentAnalysis["test"] = train_data_loader
+    
+
+    
    
-    model = NLPModel()#config)
+    #model = NLPModel()#config)
 
     """trainer = Trainer(
         max_epochs=config.train.epochs,
