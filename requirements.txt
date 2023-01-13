@@ -223,3 +223,5 @@ xxhash==3.2.0
 yarl==1.8.2
 zc.lockfile==2.0
 zipp==3.11.0
+textblob==0.17.1
+wordcloud==1.8.2.2
