@@ -9,18 +9,13 @@ import numpy as np
 
 
 class CoronaTweets(Dataset):
-    def __init__(self, type: str = "test") -> None:
-        if type == "train":
-            file_tweets = "/data/processed/train.pth"
-        elif type == "test":
-            file_tweets =  "/data/processed/test.pth"
-        else:
-            raise Exception(f"Unknown Dataset type: {type}")
+    def __init__(self, reviews, targets, tokenizer, max_len=512, transform=None):
+        self.reviews = reviews
+        self.targets = targets
+        self.tokenizer = tokenizer
+        self.max_len = max_len
+        self.transform = transform
         
-        self.path=os.getcwd()
-        self.file = torch.load(self.path+file_tweets)
-        self.tweets = self.file['tweets']
-        self.labels = self.file['labels']
         
 
         assert len(self.tweets) == len(

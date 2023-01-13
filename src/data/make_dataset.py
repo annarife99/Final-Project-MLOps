@@ -64,7 +64,7 @@ def main():
     dataset_sentAnalysis = DatasetDict()
     dataset_sentAnalysis["train"] = dataset_train
     dataset_sentAnalysis["test"] = dataset_test
-    print(dataset_sentAnalysis)
+    
 
     #PREPROCESS
     dataset_sentAnalysis_preprocessed = dataset_sentAnalysis.map(preprocessBatch, batched=True, batch_size=32)
