@@ -7,7 +7,8 @@ import os
 import pandas as pd
 import numpy as np
 from transformers import AutoTokenizer
-from clean_functions import preprocessText
+from src.data.clean_functions import preprocessText
+#from clean_functions import preprocessText
 import torch
 
 
@@ -32,7 +33,7 @@ class CoronaTweets(Dataset):
         if self.transform:
             reviews = self.transform(self.reviews)
     
-        encoding = tokenizer.encode_plus(
+        encoding = self.tokenizer.encode_plus(
             reviews,
             max_length=self.max_len,
             add_special_tokens=True,

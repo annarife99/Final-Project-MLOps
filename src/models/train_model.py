@@ -17,12 +17,19 @@ from datasets import Dataset , Sequence , Value , Features , ClassLabel , Datase
 from model import NLPModel
 
 from src.data.dataset import CoronaTweets, create_dataloader
-from src.data.clean_functions import preprocessText
+#from src.data.clean_functions import preprocessText
 
 #@hydra.main(config_path="../../config", config_name="default_config.yaml")
 def main():#config: DictConfig):
     logger = logging.getLogger(__name__)
     logger.info("Start Training...")
+
+    _CURRENT_ROOT = os.getcwd()  # root of current file
+    _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
+    _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
+    _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
+    _PATH_PROCESSED_DATA = os.path.join(_PROJECT_ROOT, "data/processed/")  # root of raw data folder
+
     #client = secretmanager.SecretManagerServiceClient()
     #PROJECT_ID = "dtu-mlops-project"
 
@@ -46,18 +53,17 @@ def main():#config: DictConfig):
     modelName = models[2] 
     max_len = 128
     tokenizer = AutoTokenizer.from_pretrained(modelName)
-    df_train= pd.read_csv('data/processed/df_train.csv')
-    df_test= pd.read_csv('data/processed/df_test.csv')
+
+    df_train = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_train.csv'))
+    df_test = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_test.csv'))
 
     train_data_loader = create_dataloader(df_train, tokenizer, max_len, batch_size)
-    train_data_loader = create_dataloader(df_test, tokenizer, max_len, batch_size)
+    test_data_loader = create_dataloader(df_test, tokenizer, max_len, batch_size)
 
     dataset_sentAnalysis = DatasetDict()
     dataset_sentAnalysis["train"] = train_data_loader
     dataset_sentAnalysis["test"] = train_data_loader
-    
 
-    
    
     #model = NLPModel()#config)
 
