@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 import click
 import logging
 from pathlib import Path
@@ -6,11 +7,17 @@ from dotenv import find_dotenv, load_dotenv
 import os
 import pandas as pd
 import torch 
+import datasets
+from datasets import Dataset , Sequence , Value , Features , ClassLabel , DatasetDict
+from clean_functions import preprocessBatch
+from transformers import AutoTokenizer
 
 
 @click.command()
 #@click.argument('input_filepath', type=click.Path(exists=True))
 #@click.argument('output_filepath', type=click.Path())
+
+
 
 def main():
     """ Runs data processing scripts to turn raw data from (../raw) into
@@ -20,34 +27,65 @@ def main():
     logger.info('Making final data set from raw data')
 
     path=os.getcwd()
-    pd_file_train = pd.read_csv(path+'/data/raw/Corona_NLP_train.csv',encoding='ISO-8859-1')
-    pd_file_test = pd.read_csv(path+'/data/raw/Corona_NLP_test.csv')
+    pd_file_train = pd.read_csv(path+'/data/raw/Corona_NLP_train.csv',encoding='latin')
+    pd_file_test = pd.read_csv(path+'/data/raw/Corona_NLP_test.csv',encoding='latin')
 
-    #CHANGE LABELS
-    pd_file_train.loc[pd_file_train['Sentiment'] == "Extremely Negative", 'Sentiment'] = 0
-    pd_file_train.loc[pd_file_train['Sentiment'] == "Negative", 'Sentiment'] = 1
-    pd_file_train.loc[pd_file_train['Sentiment'] == "Neutral", 'Sentiment'] = 2
-    pd_file_train.loc[pd_file_train['Sentiment'] == "Positive", 'Sentiment'] = 3
-    pd_file_train.loc[pd_file_train['Sentiment'] == "Extremely Positive", 'Sentiment'] = 4
-
-    pd_file_test.loc[pd_file_test['Sentiment'] == "Extremely Negative", 'Sentiment'] = 0
-    pd_file_test.loc[pd_file_test['Sentiment'] == "Negative", 'Sentiment'] = 1
-    pd_file_test.loc[pd_file_test['Sentiment'] == "Neutral", 'Sentiment'] = 2
-    pd_file_test.loc[pd_file_test['Sentiment'] == "Positive", 'Sentiment'] = 3
-    pd_file_test.loc[pd_file_test['Sentiment'] == "Extremely Positive", 'Sentiment'] = 4
+    pd_file_train = pd_file_train[["OriginalTweet", "Sentiment"]]
+    pd_file_train.drop_duplicates(subset='OriginalTweet',inplace=True)
+    pd_file_train = pd_file_train.rename({'OriginalTweet': 'Reviews'}, axis='columns')
+    pd_file_train['Sentiment']=pd_file_train['Sentiment'].replace({'Neutral':2, 'Positive':3,'Extremely Positive':4, 'Extremely Negative':0,'Negative':1})
+    pd_file_train['Sentiment']=pd_file_train['Sentiment'].astype(int)
+    pd_file_train = pd_file_train.reset_index(drop=True)
+    pd_file_train.isnull().sum()
+    pd_file_train.to_csv(path+'/data/processed/df_train.csv')
 
 
-    train_dic={}
-    train_dic['labels']= pd_file_train['Sentiment'].to_numpy()
-    train_dic['tweets']= pd_file_train['OriginalTweet'].to_numpy()
+    pd_file_test = pd_file_test.drop(labels=['UserName', 'ScreenName', 'Location', 'TweetAt'], axis=1)
+    pd_file_test.drop_duplicates(subset='OriginalTweet',inplace=True)
+    pd_file_test = pd_file_test.rename({'OriginalTweet': 'Reviews'}, axis="columns")
+    pd_file_test['Sentiment']=pd_file_test['Sentiment'].replace({'Neutral':2, 'Positive':3,'Extremely Positive':4, 'Extremely Negative':0,'Negative':1})
+    pd_file_test['Sentiment']=pd_file_test['Sentiment'].astype(int)
+    pd_file_test = pd_file_test.reset_index(drop=True)
+    pd_file_test.to_csv(path+'/data/processed/df_test.csv')
+    print(pd_file_train.shape , pd_file_test.shape)
 
-    test_dic={}
-    test_dic['labels']= pd_file_test['Sentiment'].to_numpy()
-    test_dic['tweets']= pd_file_test['OriginalTweet'].to_numpy()
+    def createDataset(df,textCol, labelCol):
+        dataset_dict = {
+            'text' : df[textCol],
+            'labels' : df[labelCol],
+        }
+        sent_tags = ClassLabel(num_classes=5 , names=['Extremely Negative', 'Negative','Neutral','Positive', 'Extremely Positive'])
+        return Dataset.from_dict(
+            mapping = dataset_dict,
+            features = Features({'text' : Value(dtype='string') , 'labels' :sent_tags})
+        )
+
+    dataset_train = createDataset(pd_file_train,"Reviews","Sentiment")
+    dataset_test = createDataset(pd_file_test,"Reviews","Sentiment")
     
-    torch.save(train_dic, path+'/data/processed/train.pth')
-    torch.save(test_dic, path+'/data/processed/test.pth')
 
+    dataset_sentAnalysis = DatasetDict()
+    dataset_sentAnalysis["train"] = dataset_train
+    dataset_sentAnalysis["test"] = dataset_test
+    
+
+    #PREPROCESS
+    dataset_sentAnalysis_preprocessed = dataset_sentAnalysis.map(preprocessBatch, batched=True, batch_size=32)
+
+    
+    #TOKENIZER
+    models = ["distilbert-base-uncased", "bert-base-uncased", "bert-base-cased"]
+    modelName = models[2] 
+    tokenizer = AutoTokenizer.from_pretrained(modelName)
+
+    max_len = 128
+    def tokenize(batch):
+        return tokenizer(batch["text"], pad_to_max_length=True, truncation=True, max_length=max_len)
+    
+    dataset_sentAnalysis_encoded = dataset_sentAnalysis_preprocessed.map(tokenize, batched=True, batch_size=32)
+    
+    torch.save(dataset_sentAnalysis_encoded, path+'/data/processed/dataset.pth')
+    
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
