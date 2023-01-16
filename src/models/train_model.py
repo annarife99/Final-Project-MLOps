@@ -11,6 +11,7 @@ from omegaconf import DictConfig
 from pytorch_lightning import Trainer
 import pandas as pd
 import numpy as np
+import sys
 from transformers import AutoTokenizer
 from datasets import Dataset , Sequence , Value , Features , ClassLabel , DatasetDict
 from transformers import AutoConfig
@@ -18,7 +19,7 @@ from torch.optim import AdamW
 from transformers import get_scheduler
 from model import NLPModel
 import wandb
-from src.data.dataset import CoronaTweets, create_dataloader
+# from src.data.dataset import CoronaTweets, create_dataloader
 from sklearn.metrics import accuracy_score, f1_score
 from tqdm import tqdm
 from collections import defaultdict
@@ -29,7 +30,7 @@ from typing import Dict
 #@hydra.main(config_path="../../config", config_name="default_config.yaml")
 
 @hydra.main(config_path="config", config_name='config.yaml')
-
+@hydra.main(config_path="config", config_name='config.yaml')
 def main(config: DictConfig) -> None:
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
@@ -40,6 +41,8 @@ def main(config: DictConfig) -> None:
     _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
     _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
     _PATH_PROCESSED_DATA = os.path.join(_PROJECT_ROOT, "data/processed/")  # root of raw data folder
+    sys.path.append(_PROJECT_ROOT)
+    from src.data.dataset import CoronaTweets, create_dataloader
 
     hparams = config.experiment
     torch.manual_seed(hparams["seed"])
@@ -244,9 +247,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # not used in this stub but often useful for finding various files
-    print(os.getcwd())
     project_dir = Path(__file__).resolve().parents[2]
-
+    
     # find .env automagically by walking up directories until it's found, then
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())
