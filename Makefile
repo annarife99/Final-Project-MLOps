@@ -23,10 +23,14 @@ endif
 ## Install Python Dependencies
 requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+	$(PYTHON_INTERPRETER) -m pip install -r alex_requirements.txt
+
+## Download data set from Google
+download:
+	dvc pull 
 
 ## Make Dataset
-data: requirements
+data: requirements download
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
 
 ## Delete all compiled Python files
@@ -78,7 +82,7 @@ test_environment:
 
 train:
 	python src/models/train_model.py train 
-	
+
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################

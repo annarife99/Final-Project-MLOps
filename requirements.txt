@@ -103,9 +103,9 @@ matplotlib @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs
 # munkres==1.1.4
 # nanotime==0.5.2
 # networkx==3.0
-nltk @ file:///opt/conda/conda-bld/nltk_1645628263994/work
-numexpr @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_cef3ah6r8w/croot/numexpr_1668713880672/work
-numpy @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_8cgikbzvtd/croot/numpy_and_numpy_base_1672336184666/work
+# nltk @ file:///opt/conda/conda-bld/nltk_1645628263994/work
+# numexpr @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_cef3ah6r8w/croot/numexpr_1668713880672/work
+# numpy @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_8cgikbzvtd/croot/numpy_and_numpy_base_1672336184666/work
 # oauth2client==4.1.3
 # oauthlib @ file:///home/conda/feedstock_root/build_artifacts/oauthlib_1666056362788/work
 # omegaconf==2.3.0

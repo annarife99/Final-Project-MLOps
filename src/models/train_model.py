@@ -18,7 +18,15 @@ from torch.optim import AdamW
 from transformers import get_scheduler
 from model import NLPModel
 import wandb
-from src.data.dataset import CoronaTweets, create_dataloader
+
+_CURRENT_ROOT = os.getcwd()  # root of current file
+_SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
+_PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
+_PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
+_PATH_PROCESSED_DATA = os.path.join(_PROJECT_ROOT, "data/processed/")  # root of raw data folder
+import pdb; pdb.set_trace()
+
+# from src.data.dataset import CoronaTweets, create_dataloader
 #from src.data.clean_functions import preprocessText
 
 #@hydra.main(config_path="../../config", config_name="default_config.yaml")
@@ -29,12 +37,12 @@ def main(config):#config: DictConfig):
     logger = logging.getLogger(__name__)
     logger.info("Start Training...")
 
-    _CURRENT_ROOT = os.getcwd()  # root of current file
-    _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
-    _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
-    _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
-    _PATH_PROCESSED_DATA = os.path.join(_PROJECT_ROOT, "data/processed/")  # root of raw data folder
-
+    # _CURRENT_ROOT = os.getcwd()  # root of current file
+    # _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
+    # _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
+    # _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
+    # _PATH_PROCESSED_DATA = os.path.join(_PROJECT_ROOT, "data/processed/")  # root of raw data folder
+    # import pdb; pdb.set_trace()
     hparams = config.experiment
     torch.manual_seed(hparams["seed"])
 
@@ -144,6 +152,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # not used in this stub but often useful for finding various files
+    print(os.getcwd())
     project_dir = Path(__file__).resolve().parents[2]
 
     # find .env automagically by walking up directories until it's found, then
