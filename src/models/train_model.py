@@ -73,8 +73,8 @@ def main(config: DictConfig) -> None:
     max_len = hparams['max_len']
     tokenizer = AutoTokenizer.from_pretrained(modelName)
 
-    df_train = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_train.csv'))
-    df_test = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_test.csv'))
+    df_train = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_train.csv'),nrows=100)
+    df_test = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_test.csv'),nrows=20)
 
     train_data_loader = create_dataloader(df_train, tokenizer, max_len, batch_size)
     test_data_loader = create_dataloader(df_test, tokenizer, max_len, batch_size)
@@ -171,8 +171,12 @@ def main(config: DictConfig) -> None:
         model.train()
         losses = []
         correct_predictions = 0
+        print(len(data_loader))
+        i=0
 
         for d in data_loader:
+            print(i)
+            i+=1
             input_ids = d["input_ids"].to(device)  # bs*classes
             attention_mask = d["attention_mask"].to(device)
             targets = d["targets"].to(device)
@@ -192,7 +196,7 @@ def main(config: DictConfig) -> None:
             nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
             optimizer.step()
-            # scheduler.step()
+            scheduler.step()
             optimizer.zero_grad()
 
         wandb.log({
@@ -231,6 +235,8 @@ def main(config: DictConfig) -> None:
         history['train_loss'].append(train_loss)
         history['val_acc'].append(val_acc)
         history['val_loss'].append(val_loss)
+
+
         if val_acc > best_accuracy:
             torch.save({
                 'epoch': epoch,
@@ -239,6 +245,7 @@ def main(config: DictConfig) -> None:
                 'loss': train_loss
             }, f'./bert-eng.bin')
             best_accuracy = val_acc
+
 
 
 
@@ -254,3 +261,4 @@ if __name__ == "__main__":
     load_dotenv(find_dotenv())
 
     main()
+    print('End')
