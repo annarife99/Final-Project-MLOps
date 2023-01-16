@@ -1,0 +1,7 @@
+experiment:
+  lr: 2.0e-05
+  num_epochs: 1
+  batch_size: 8
+  n_epochs: 5
+  max_len: 128
+  seed: 123

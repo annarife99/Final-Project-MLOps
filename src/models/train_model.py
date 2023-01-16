@@ -2,7 +2,7 @@
 import logging
 import os
 from pathlib import Path
-
+from torch import nn
 import hydra
 import pytorch_lightning as pl
 import torch
@@ -19,17 +19,23 @@ from transformers import get_scheduler
 from model import NLPModel
 import wandb
 from src.data.dataset import CoronaTweets, create_dataloader
+from sklearn.metrics import accuracy_score, f1_score
+from tqdm import tqdm
+from collections import defaultdict
+from tqdm.notebook import tqdm
+from typing import Dict
 #from src.data.clean_functions import preprocessText
 
 #@hydra.main(config_path="../../config", config_name="default_config.yaml")
 
 @hydra.main(config_path="config", config_name='config.yaml')
 
-def main(config):#config: DictConfig):
+def main(config: DictConfig) -> None:
+    logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
     logger.info("Start Training...")
 
-    _CURRENT_ROOT = os.getcwd()  # root of current file
+    _CURRENT_ROOT = os.path.abspath(os.path.dirname(__file__))  # root of current file
     _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
     _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
     _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
@@ -46,9 +52,9 @@ def main(config):#config: DictConfig):
     #response = client.access_secret_version(name=resource_name)
     #api_key = response.payload.data.decode("UTF-8")
     #os.environ["WANDB_API_KEY"] = api_key
-    wandb.init(project="NLP-BERT", entity="dtu-mlops", config=config)
 
-    gpus = 0
+    # api_key='366e12344bd2ff60ee203fae40c62940b249e3ff'
+    wandb.init(project="NLP-BERT", entity="ml-operations")
     if torch.cuda.is_available():
         # selects all available gpus
         print(f"Using {torch.cuda.device_count()} GPU(s) for training")
@@ -99,11 +105,13 @@ def main(config):#config: DictConfig):
     optimizer = AdamW(bert_model.parameters(), lr=lr)
 
     num_epochs = hparams['n_epochs']
+    print('EPOCHS',num_epochs)
 
     dataset_sentAnalysis = DatasetDict()
     dataset_sentAnalysis["train"] = train_data_loader
     dataset_sentAnalysis["test"] = train_data_loader
 
+    dataset_sentAnalysis_encoded=torch.load(os.path.join(_PATH_PROCESSED_DATA,'dataset.pth'))
     logging_steps = len(dataset_sentAnalysis_encoded["train"]) // batch_size
     num_training_steps = num_epochs * logging_steps
     lr_scheduler = get_scheduler(
@@ -111,32 +119,124 @@ def main(config):#config: DictConfig):
     )
     loss_fct = nn.CrossEntropyLoss().to(device)
 
-
-    wandb.init(project="bert-eng-model")
     wandb.config = {
         "learning_rate": lr, "epochs": num_epochs, "batch_size": batch_size
     }
 
+    def compute_metrics(pred):
+        labels = pred.label_ids
+        preds = pred.predictions.argmax(-1)
+        f1 = f1_score(labels, preds, average="weighted")
+        acc = accuracy_score(labels, preds)
+        return {"accuracy": acc, "f1": f1}
 
+    def eval_op(model, data_loader, loss_fn, n_examples):
+        model.eval()
 
-   
-    model = NLPModel()#config)
+        losses = []
+        correct_predictions = 0
 
-    trainer = Trainer(
-        max_epochs=config.train.epochs,
-        gpus=gpus,
-        logger=pl.loggers.WandbLogger(project="mlops-mnist", config=config),
-        val_check_interval=1.0,
-        check_val_every_n_epoch=1,
-        gradient_clip_val=1.0,
-    )
-    trainer.fit(
-        model,
-        train_dataloader=data_module.train_dataloader(),
-        val_dataloaders=data_module.test_dataloader(),
-    )
+        with torch.no_grad():
+            for d in data_loader:
+                input_ids = d["input_ids"].to(device)
+                attention_mask = d["attention_mask"].to(device)
+                targets = d["targets"].to(device)
+                outputs = model(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask
+                )
+                preds = torch.max(outputs.logits, dim=1)
+                loss = loss_fn(outputs.logits, targets)
+                correct_predictions += torch.sum(preds.indices == targets)
+                losses.append(loss.item())
+        wandb.log({
+            "loss-eval": np.mean(losses),
+            "accuracy-eval": correct_predictions.double(),
+            "learning-rate": optimizer.param_groups[0]['lr']
+        })
+        return correct_predictions.double() / n_examples, np.mean(losses)
 
-    model.save_jit()
+    def train_epoch(
+            model,
+            data_loader,
+            loss_fn,
+            optimizer,
+            n_examples,
+            scheduler=None
+    ):
+        # put the model in training mode > dropout is considered for exp
+        model.train()
+        losses = []
+        correct_predictions = 0
+
+        for d in data_loader:
+            input_ids = d["input_ids"].to(device)  # bs*classes
+            attention_mask = d["attention_mask"].to(device)
+            targets = d["targets"].to(device)
+            outputs = model(
+                input_ids=input_ids,
+                attention_mask=attention_mask
+            )
+            preds = torch.max(outputs.logits, dim=1)
+
+            # the loss has grad function
+            loss = loss_fn(outputs.logits, targets)
+            correct_predictions += torch.sum(preds.indices == targets)
+            losses.append(loss.item())
+            loss.backward()
+
+            # avoid exploding gradient - gradient clipping
+            nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+
+            optimizer.step()
+            # scheduler.step()
+            optimizer.zero_grad()
+
+        wandb.log({
+            "loss-train": np.mean(losses),
+            "accuracy-train": correct_predictions.double(),
+            "learning-rate": optimizer.param_groups[0]['lr']
+        })
+
+        # return accuracy and loss
+        return correct_predictions.double() / n_examples, np.mean(losses)
+
+    history = defaultdict(list)
+    best_accuracy = 0
+    for epoch in range(num_epochs):
+        print(f'Epoch {epoch + 1}/{num_epochs}')
+        print('-' * 10)
+
+        train_acc, train_loss = train_epoch(
+            bert_model,
+            train_data_loader,
+            loss_fct,
+            optimizer,
+            len(df_train),
+            scheduler=lr_scheduler
+        )
+        print(f'Train loss {train_loss} accuracy {train_acc}')
+
+        val_acc, val_loss = eval_op(
+            bert_model,
+            test_data_loader,
+            loss_fct,
+            len(df_test)
+        )
+        print(f'Val loss {val_loss} accuracy {val_acc}')
+        history['train_acc'].append(train_acc)
+        history['train_loss'].append(train_loss)
+        history['val_acc'].append(val_acc)
+        history['val_loss'].append(val_loss)
+        if val_acc > best_accuracy:
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': bert_model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': train_loss
+            }, f'./bert-eng.bin')
+            best_accuracy = val_acc
+
 
 
 if __name__ == "__main__":
