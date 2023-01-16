@@ -24,7 +24,7 @@ def main():
     logger = logging.getLogger(__name__)
     logger.info('Making final data set from raw data')
 
-    _CURRENT_ROOT = os.getcwd()  # root of current file
+    _CURRENT_ROOT = os.path.dirname(__file__)  # root of current file
     _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
     _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
     _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
