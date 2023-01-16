@@ -16,7 +16,7 @@ from transformers import (  # isort:skip
 
 class NLPModel(BertPreTrainedModel):
     def __init__(self,config):
-        super().__init__()
+        super().__init__(config)
         self.num_labels = config.num_labels
         self.config = config
         self.bert = BertModel(config)
