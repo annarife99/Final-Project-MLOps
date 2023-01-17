@@ -14,14 +14,14 @@ from collections import defaultdict
 
 from fastapi import FastAPI
 from fastapi import UploadFile, File
-from fastapi.responses import FileResponse
-from typing import Optional
+
 from http import HTTPStatus
 
 app = FastAPI()
 
 @app.post("/train_model/")
-async def train_model(lr: int, batch_size:int, n_epochs:int, max_len:int, seed:23, ntrain: int, ntest:int):
+
+async def train_model(lr: int, batch_size:int, n_epochs:int, max_len:int, seed:int, ntrain: int, ntest:int):
     _CURRENT_ROOT = os.path.abspath(os.path.dirname(__file__))  # root of current file
     _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
     _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
@@ -176,12 +176,5 @@ async def train_model(lr: int, batch_size:int, n_epochs:int, max_len:int, seed:2
             }, f'./bert-eng.bin')
             best_accuracy = val_acc
 
-
-
-    response = {
-        "output": history,
-        "message": HTTPStatus.OK.phrase,
-        "status-code": HTTPStatus.OK,
-    }
-    return response
+    return "trained finished"
 
