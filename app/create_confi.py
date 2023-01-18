@@ -1,8 +1,10 @@
+import glob
+import os
+
+import yaml
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
-import yaml
-import os
-import glob
+
 app = FastAPI()
 
 @app.post("/conf_files/")
