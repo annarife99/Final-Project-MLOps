@@ -21,7 +21,7 @@ app = FastAPI()
 
 @app.post("/train_model/")
 
-async def train_model(lr: int, batch_size:int, n_epochs:int, max_len:int, seed:int, ntrain: int, ntest:int):
+async def train_model(lr: float, batch_size:int, n_epochs:int, max_len:int, seed:int, ntrain: int, ntest:int):
     _CURRENT_ROOT = os.path.abspath(os.path.dirname(__file__))  # root of current file
     _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
     _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
