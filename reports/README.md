@@ -105,7 +105,7 @@ end of the project.
 >
 > Answer:
 
---- question 1 fill here ---
+Group: Awasome 43
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -116,7 +116,7 @@ end of the project.
 >
 > Answer:
 
---- question 2 fill here ---
+> *s212784, s212487, s213237*
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -129,7 +129,7 @@ end of the project.
 >
 > Answer:
 
---- question 3 fill here ---
+Some of the frameworks used in the project have been: PyTorch and the PyTorch Lightning  library which we used to complete the project by providing the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, we also used the scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
 
 ## Coding environment
 
@@ -148,7 +148,28 @@ end of the project.
 >
 > Answer:
 
---- question 4 fill here ---
+Some packages were installed using pip, such as nltk, pytorch-lightning, and matplotlib, and others were installed using conda, such as torch and torchvision. The package managers allow for easy installation, updating and uninstalling of packages, also it helps in resolving dependencies. For this reason, we’ve choose to use conda as primarily package manager.  
+To get the list of the packages installed with pip we used:
+pip list --format=freeze > <pipfileName>.txt 
+instead of:
+pip freeze > <filename>
+To remove odd path references and just keep the package and the version we used. 
+To get the conda list we used: 
+conda list –explicit >  <condafileName>.txt
+
+Then we used:
+cat <condafileName>.txt >> <pipfileName>.txt 
+To join both requirements. 
+
+Once we had both requirements in a list we checked for the essential ones, as pip freeze gives all the packages you had installed using pip management. 
+To reply our environment you can just run the following command once you have installed python and conda. 
+
+conda create -n myenv python=3.8.15
+conda activate myenv
+conda install pip 
+go to the directory you stored the file <condafileName>.txt
+python <condafileName>.txt 
+
 
 ### Question 5
 
@@ -163,7 +184,32 @@ end of the project.
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+The overall structure from cookiecutter that we've used is:
+.dvc : contain the configuration files for dvc, a version control system for machine learning projects.
+.gitignore : git ignore file, used to ignore files and directories that should not be tracked by git
+LICENSE : license file for the project
+Makefile : a Makefile is a simple way to automate common tasks in a project.
+README.md : contains information about the project
+requirements.txt : contains the project dependencies
+data.dvc : data version control file for dvc
+data/processed/test.pth : a processed data file for the test set
+data/processed/train.pth : a processed data file for the train set
+data/raw/ : contains the raw data files
+docs/ : contains documentation files
+models/ : contains the models and their configurations
+notebooks/ : contains the project's notebooks which we didn’t use.
+outputs.dvc : outputs version control file for dvc
+predict.dockerfile : a file that contains instructions to build a container image
+pyproject.toml : a file that contains the project's dependencies
+references/ : contains references used in the project
+reports/ : contains the project's reports
+src/ : contains the source code for the project which we used:
+src/features: to cbuild the features.
+src/models: to make the train model and the predict model, we have also the config files for hydra and some utils script for useful functions.
+src/visualitzation: We printed some useful images of how our model performs. 
+test_environment.py : a script to test the environment
+tox.ini : configuration file for Tox, a tool for running tests in multiple Python environments
+trainer.dockerfile : a file that contains instructions to build a container image
 
 ### Question 6
 
@@ -174,7 +220,18 @@ end of the project.
 >
 > Answer:
 
---- question 6 fill here ---
+We used Black and isort packages with a default configuration. Some of are:
+*Black:*
+-Use 4 spaces per indentation level.
+-Limit all lines to a maximum of 79 characters.
+-Use double quotes, not single quotes, for string literals.
+-Use spaces around operators and after commas, but not directly inside parentheses or square brackets.
+-Use empty lines to separate top-level function and class definitions.
+*Isort:*
+-Sorting imports alphabetically and by type (e.g. standard library imports, third-party imports, local imports)
+-Grouping imports by type (e.g. standard library imports, third-party imports, local imports)
+-Sorting imports within groups alphabetically.
+
 
 ## Version control
 
