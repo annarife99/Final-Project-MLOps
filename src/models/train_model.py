@@ -24,8 +24,7 @@ from torch.optim import AdamW
 from tqdm import tqdm
 from tqdm.notebook import tqdm
 from transformers import AutoConfig, AutoTokenizer, get_scheduler
-from src.data.dataset import CoronaTweets, create_dataloader
-
+#from src.data.dataset import CoronaTweets, create_dataloader
 # from src.data.clean_functions import preprocessText
 
 # @hydra.main(config_path="../../config", config_name="default_config.yaml")
@@ -44,6 +43,7 @@ def main(config: DictConfig) -> None:
     _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
     _PATH_PROCESSED_DATA = os.path.join(_PROJECT_ROOT, "data/processed/")  # root of raw data folder
     sys.path.append(_PROJECT_ROOT)
+    from src.data.dataset import CoronaTweets, create_dataloader
 
     hparams = config.experiment
     torch.manual_seed(hparams["seed"])
