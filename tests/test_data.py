@@ -3,7 +3,8 @@ import os
 from tests import _PATH_DATA
 import torch
 def test_data():
-   dataset = torch.load(os.path.join(_PATH_DATA ,'processed/dataset.pth'))
+   dataset=torch.load(f'{_PATH_DATA}/processed/dataset.pth')
+   #dataset = torch.load(os.path.join(_PATH_DATA ,'processed/dataset.pth'))
 
    # Assert that the train split has 41157 samples and 5 features
    assert dataset['train'].shape == (41157, 5), f'Train dataset has shape {dataset["train"].shape}, expected (41157, 5)'
