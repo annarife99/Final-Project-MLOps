@@ -4,15 +4,16 @@ click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.2.0
 # cloudpickle==2.0.0 
-dvc==2.41.1
-dvc-data==0.29.0
-dvc-gdrive==2.19.1
-dvc-http==2.30.0
-dvc-objects==0.14.1
-dvc-render==0.0.17
-dvc-studio-client==0.3.0
-dvc-task==0.1.9
-dvclive==1.3.2
+datasets==2.7.1
+#dvc==2.41.1
+#dvc-data==0.29.0
+#dvc-gdrive==2.19.1
+#dvc-http==2.30.0
+#dvc-objects==0.14.1
+#dvc-render==0.0.17
+#dvc-studio-client==0.3.0
+#dvc-task==0.1.9
+#dvclive==1.3.2
 flake8==4.0.1
 # google-api-core==2.11.0
 # google-api-python-client==2.72.0
@@ -28,7 +29,7 @@ matplotlib-inline==0.1.6
 nltk==3.7
 numpy==1.21.5
 numpydoc==1.4.0
-pandas==1.5.2
+pandas==1.3.5
 pathlib==1.0.1
 pathspec==0.9.0
 # pep8==1.7.1
@@ -52,4 +53,9 @@ torch==1.13.1
 torchaudio==0.13.1
 torchvision==0.14.1
 tqdm==4.64.1
-
+transformers==4.24.0
+wandb==0.13.9
+python-dotenv==0.21.0
+omegaconf==2.3.0
+scikit-learn==1.0.2
+-e .

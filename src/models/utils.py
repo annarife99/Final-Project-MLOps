@@ -1,96 +1,52 @@
-from sklearn.metrics import accuracy_score, f1_score
-from tqdm.notebook import tqdm
-import wandb
 import torch
-import numpy as np
-from torch.optim import AdamW
-from model import NLPModel
+from torch.utils.data import DataLoader
+from torch.utils.data.dataset import Dataset
+from src.data.clean_functions import preprocessText
+class CoronaTweets(Dataset):
+    def __init__(self, reviews, targets, tokenizer, max_len=512, transform=None):
+        self.reviews = reviews
+        self.targets = targets
+        self.tokenizer = tokenizer
+        self.max_len = max_len
+        self.transform = transform
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # how large the datset is
+    def __len__(self):
+        return len(self.reviews)
 
+    def __getitem__(self, itemInd):
+        reviews = str(self.reviews[itemInd])
 
-wandb.init(project="bert-eng-model")
-wandb.config = {
-    "learning_rate": lr, "epochs": num_epochs, "batch_size": batch_size
-}
+        # implement in transform too
+        reviews = preprocessText(reviews)
 
-optimizer = AdamW(bert_model.parameters(), lr=lr)
+        if self.transform:
+            reviews = self.transform(self.reviews)
 
-def compute_metrics(pred):
-    labels = pred.label_ids
-    preds = pred.predictions.argmax(-1)
-    f1 = f1_score(labels, preds, average="weighted")
-    acc = accuracy_score(labels, preds)
-    return {"accuracy": acc, "f1": f1}
-
-def eval_op(model, data_loader, loss_fn, n_examples):
-    model.eval()
-
-    losses = []
-    correct_predictions = 0
-
-    with torch.no_grad():
-      for d in data_loader:
-        input_ids = d["input_ids"].to(device)
-        attention_mask = d["attention_mask"].to(device)
-        targets = d["targets"].to(device)
-        outputs = model(
-          input_ids=input_ids,
-          attention_mask=attention_mask
+        encoding = self.tokenizer.encode_plus(
+            reviews,
+            max_length=self.max_len,
+            add_special_tokens=True,
+            pad_to_max_length=True,
+            return_attention_mask=True,
+            return_token_type_ids=False,
+            return_tensors="pt",
         )
-        preds = torch.max(outputs.logits, dim=1)
-        loss = loss_fn(outputs.logits, targets)
-        correct_predictions += torch.sum(preds.indices == targets)
-        losses.append(loss.item())
-    wandb.log({
-        "loss-eval": np.mean(losses),
-        "accuracy-eval": correct_predictions.double(),
-        "learning-rate":optimizer.param_groups[0]['lr']
-    })
-    return correct_predictions.double() / n_examples, np.mean(losses)
+        # encoding["input_ids"] > 1*150 >> .flatten() > 150, > in bach size makes problem
+        return {
+            "review_text": reviews,
+            "input_ids": encoding["input_ids"].flatten(),
+            "attention_mask": encoding["attention_mask"].flatten(),
+            "targets": torch.tensor(self.targets[itemInd], dtype=torch.long),
+        }
 
 
-def train_epoch(
-        model,
-        data_loader,
-        loss_fn,
-        optimizer,
-        n_examples,
-        scheduler=None
-):
-    # put the model in training mode > dropout is considered for exp
-    model.train()
-    losses = []
-    correct_predictions = 0
+def create_dataloader(df, tokenizer, max_len, batch_size):
+    ds = CoronaTweets(
+        reviews=df["Reviews"].to_numpy(),
+        targets=df["Sentiment"].to_numpy(),
+        tokenizer=tokenizer,
+        max_len=max_len,
+    )
 
-    for d in data_loader:
-        input_ids = d["input_ids"].to(device)  # bs*classes
-        attention_mask = d["attention_mask"].to(device)
-        targets = d["targets"].to(device)
-        outputs = model(
-            input_ids=input_ids,
-            attention_mask=attention_mask
-        )
-        preds = torch.max(outputs.logits, dim=1)
-
-        # the loss has grad function
-        loss = loss_fn(outputs.logits, targets)
-        correct_predictions += torch.sum(preds.indices == targets)
-        losses.append(loss.item())
-        loss.backward()
-
-        # avoid exploding gradient - gradient clipping
-        nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-
-        optimizer.step()
-        # scheduler.step()
-        optimizer.zero_grad()
-
-    wandb.log({
-        "loss-train": np.mean(losses),
-        "accuracy-train": correct_predictions.double(),
-        "learning-rate": optimizer.param_groups[0]['lr']
-    })
-
-    # return accuracy and loss
-    return correct_predictions.double() / n_examples, np.mean(losses)
+    return DataLoader(ds, batch_size=batch_size, num_workers=0)

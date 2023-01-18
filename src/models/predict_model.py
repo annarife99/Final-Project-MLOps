@@ -3,26 +3,27 @@ import logging
 import os
 from pathlib import Path
 from time import time
+
 import hydra
+import matplotlib.pyplot as plt
 import numpy as np
 import omegaconf
-import torch.quantization
-from dotenv import find_dotenv, load_dotenv
-from omegaconf import DictConfig
-from torch import nn
-import wandb
-from torch.optim import AdamW
 import pandas as pd
-from transformers import AutoTokenizer
-from transformers import AutoConfig
-from model import NLPModel
-from src.data.dataset import CoronaTweets, create_dataloader
-from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as sns
-import matplotlib.pyplot as plt
+import torch.quantization
+import wandb
+from dotenv import find_dotenv, load_dotenv
+from model import NLPModel
+from omegaconf import DictConfig
+from sklearn.metrics import classification_report, confusion_matrix
+from torch import nn
+from torch.optim import AdamW
+from transformers import AutoConfig, AutoTokenizer
 
-@hydra.main(config_path="config", config_name='config.yaml')
+from src.data.dataset import CoronaTweets, create_dataloader
 
+
+@hydra.main(config_path="config", config_name="config.yaml")
 def main(config: DictConfig) -> None:
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
@@ -43,32 +44,31 @@ def main(config: DictConfig) -> None:
     modelName = models[2]
 
     id2label = {
-        0: 'Extremely Negative',
-        1: 'Negative',
-        2: 'Neutral',
-        3: 'Positive',
-        4: 'Extremely Positive'
+        0: "Extremely Negative",
+        1: "Negative",
+        2: "Neutral",
+        3: "Positive",
+        4: "Extremely Positive",
     }
 
     label2id = {v: k for (k, v) in id2label.items()}
 
-    bert_config = AutoConfig.from_pretrained(modelName,
-                                             num_labels=5,
-                                             id2label=id2label, label2id=label2id)
+    bert_config = AutoConfig.from_pretrained(
+        modelName, num_labels=5, id2label=id2label, label2id=label2id
+    )
 
-    bert_model = (NLPModel
-                  .from_pretrained(modelName, config=bert_config)
-                  .to(device))
+    bert_model = NLPModel.from_pretrained(modelName, config=bert_config).to(device)
 
-    lr = hparams['lr']
+    lr = hparams["lr"]
     optimizer = AdamW(bert_model.parameters(), lr=lr)
 
-
-    checkpoint = torch.load(os.path.join(_SRC_ROOT,'models/outputs/2023-01-16/15-32-58/bert-eng.bin'))
-    bert_model.load_state_dict(checkpoint['model_state_dict'])
-    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    epoch = checkpoint['epoch']
-    train_loss = checkpoint['loss']
+    checkpoint = torch.load(
+        os.path.join(_SRC_ROOT, "models/outputs/2023-01-16/15-32-58/bert-eng.bin")
+    )
+    bert_model.load_state_dict(checkpoint["model_state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+    epoch = checkpoint["epoch"]
+    train_loss = checkpoint["loss"]
 
     def eval_op(model, data_loader, loss_fn, n_examples):
         model.eval()
@@ -83,31 +83,29 @@ def main(config: DictConfig) -> None:
                 input_ids = d["input_ids"].to(device)
                 attention_mask = d["attention_mask"].to(device)
                 targets = d["targets"].to(device)
-                outputs = model(
-                    input_ids=input_ids,
-                    attention_mask=attention_mask
-                )
+                outputs = model(input_ids=input_ids, attention_mask=attention_mask)
                 preds = torch.max(outputs.logits, dim=1)
                 loss = loss_fn(outputs.logits, targets)
                 correct_predictions += torch.sum(preds.indices == targets)
                 losses.append(loss.item())
-        wandb.log({
-            "loss-eval": np.mean(losses),
-            "accuracy-eval": correct_predictions.double(),
-            "learning-rate": optimizer.param_groups[0]['lr']
-        })
+        wandb.log(
+            {
+                "loss-eval": np.mean(losses),
+                "accuracy-eval": correct_predictions.double(),
+                "learning-rate": optimizer.param_groups[0]["lr"],
+            }
+        )
         return correct_predictions.double() / n_examples, np.mean(losses)
 
-    df_test = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_test.csv'), nrows=100)
-    batch_size = hparams['batch_size']
-    max_len = hparams['max_len']
+    df_test = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, "df_test.csv"), nrows=100)
+    batch_size = hparams["batch_size"]
+    max_len = hparams["max_len"]
     models = ["distilbert-base-uncased", "bert-base-uncased", "bert-base-cased"]
     modelName = models[2]
     tokenizer = AutoTokenizer.from_pretrained(modelName)
 
     test_data_loader = create_dataloader(df_test, tokenizer, max_len, batch_size)
     loss_fct = nn.CrossEntropyLoss().to(device)
-
 
     # the best model checkpoint saves in path > /content/drive/MyDrive/bert-eng-3.bin
     test_acc, test_loss = eval_op(bert_model, test_data_loader, loss_fct, len(df_test))
@@ -128,10 +126,7 @@ def main(config: DictConfig) -> None:
                 attention_mask = d["attention_mask"].to(device)
                 targets = d["targets"].to(device)
 
-                outputs = model(
-                    input_ids=input_ids,
-                    attention_mask=attention_mask
-                )
+                outputs = model(input_ids=input_ids, attention_mask=attention_mask)
                 _, preds = torch.max(outputs.logits, dim=1)
 
                 review_texts.extend(texts)
@@ -149,15 +144,15 @@ def main(config: DictConfig) -> None:
 
     y_review_texts, y_pred, y_probs, y_test = get_reviews(bert_model, test_data_loader)
 
-    class_names = ['Extremely Negative', 'Negative', 'Neutral', 'Positive', 'Extremely Positive']
+    class_names = ["Extremely Negative", "Negative", "Neutral", "Positive", "Extremely Positive"]
     print(classification_report(y_test, y_pred, target_names=class_names))
 
     def show_confusion_matrix(confusion_matrix):
         hmap = sns.heatmap(confusion_matrix, annot=True, fmt=".2f", cmap="Blues")
-        hmap.yaxis.set_ticklabels(hmap.yaxis.get_ticklabels(), rotation=0, ha='right')
-        hmap.xaxis.set_ticklabels(hmap.xaxis.get_ticklabels(), rotation=30, ha='right')
-        plt.ylabel('True sentiment')
-        plt.xlabel('Predicted sentiment')
+        hmap.yaxis.set_ticklabels(hmap.yaxis.get_ticklabels(), rotation=0, ha="right")
+        hmap.xaxis.set_ticklabels(hmap.xaxis.get_ticklabels(), rotation=30, ha="right")
+        plt.ylabel("True sentiment")
+        plt.xlabel("Predicted sentiment")
         plt.show()
 
     cm = confusion_matrix(y_test, y_pred, normalize="true")
@@ -177,4 +172,4 @@ if __name__ == "__main__":
     load_dotenv(find_dotenv())
 
     main()
-    print('End')
+    print("End")
