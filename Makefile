@@ -81,7 +81,7 @@ test_environment:
 	$(PYTHON_INTERPRETER) test_environment.py
 
 train:
-	python src/models/train_model.py train 
+	python src/models/train_model.py 
 
 #################################################################################
 # PROJECT RULES                                                                 #
