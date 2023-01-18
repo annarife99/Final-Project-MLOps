@@ -1,3 +1,4 @@
-[tool.poetry.scripts]
-flake8 = "flake8 --max-line-length=100"
-flake8 = "flake8 --exclude=venv --ignore=W503"
+[tool.black]
+line-length = 100
+exclude = "venv/*"
+include = "."
