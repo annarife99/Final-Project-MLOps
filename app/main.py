@@ -1,21 +1,17 @@
-import pandas as pd
-import numpy as np
-import torch
-import sys
-from transformers import AutoTokenizer
-from transformers import get_scheduler
 import os
-from pathlib import Path
-from torch import nn
-from transformers import AutoConfig
-from torch.optim import AdamW
-from datasets import DatasetDict
+import sys
 from collections import defaultdict
-
-from fastapi import FastAPI
-from fastapi import UploadFile, File
-
 from http import HTTPStatus
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import torch
+from datasets import DatasetDict
+from fastapi import FastAPI, File, UploadFile
+from torch import nn
+from torch.optim import AdamW
+from transformers import AutoConfig, AutoTokenizer, get_scheduler
 
 app = FastAPI()
 
