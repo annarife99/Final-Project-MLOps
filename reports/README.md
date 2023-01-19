@@ -116,7 +116,7 @@ Group: Awasome 43
 >
 > Answer:
 
-> *s212784, s212487, s213237*
+*s212784, s212487, s213237*
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
