@@ -443,11 +443,12 @@ So far we have trained the e2-medium machine types which provide 2 vCPUs, which 
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
-> **You can take inspiration from [this figure](figures/bucket.png).**
+> 
 >
 > Answer:
 
---- question 19 fill here ---
+We have created one bucket as our dataset was not to heavy. [this figure](figures/bucket.png)
+Ideally we should have created at least 2 buckets, one public and one private, so if someone modifies by error some of the data we will still have our raw data. In this case, as the raw data was prvided from kaggle and it was not heavy we can still download it. Aditionally, we have a copy of our data in google drive. 
 
 ### Question 20
 
