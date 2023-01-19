@@ -473,7 +473,10 @@ We got most of the bugs by using Pycharm debugger, VScode debugger (depending on
 >
 > Answer:
 
---- question 22 fill here ---
+To deploy our model we managed to do it locally which turned out to work using FastAPI. Due to the time limitation, we did not manage to deploy our model on the cloud. 
+First, to make sure we have understood how FastAPI works, we created a function to create the configuration files automatically by inserting the parameters as the inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, we can insert this into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. 
+      
+As we were not able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data could be used. 
 
 ### Question 23
 
