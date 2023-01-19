@@ -408,7 +408,7 @@ However, at this point we got some errors since it was not able to find our pyth
 >
 > Answer:
 
-We got most of the bugs by using Pycharm debugger, VScode debugger (depending on the member of the group) and a lot of patience. We did not have time to implement profiling, as it took us longer than expected to just make the code work without crashing. But we are aware that our code has important limitations, and among them, it takes quite long to make it run. Thus, with more time we would implement profiling to detect where is the bottleneck in our project and start optimizing code from there.
+We got most of the bugs by using Pycharm debugger and VScode debugger (depending on the member of the group) and a lot of patience. We did not have time to implement profiling, as it took us longer than expected to just make the code work without crashing. But we are aware that our code has important limitations, and among them, it takes quite long to make it run. Thus, with more time we would have implemented profiling to detect where is the bottleneck in our project and start optimizing code from there. Much could be done to improve and go deeper into this part if we had more time and if we did not have as much errors to solve at the beggining of this section. 
 
 ## Working in the cloud
 
@@ -442,8 +442,8 @@ Google cloud buckets have allowed us to store and retrieve files such as raw and
 >
 > Answer:
 
-We used the compute engine to train our model, as it’s a big model with different hyperparameters and different size of dataset. 
-So far we have trained the e2-medium machine types which provide 2 vCPUs, which means that it can handle 2 concurrent threads of execution and has 4 GB of memory. This specifications are suitable for moderate CPU and memory workloads and it can be used for web servers, small databases, development environments, and batch processing jobs.
+We used the Compute engine of GCP to train our model allowing us to create and run virtual machines on Google's infrastrcutrue as it is a big model with different hyperparameters and different size of dataset. 
+As we could specify our computing needs, so far we have trained the e2-medium machine types which provide 2 vCPUs, which means that it can handle 2 concurrent threads of execution and has 4 GB of memory. These specifications are suitable for moderate CPU and memory workloads and it can be used for web servers, small databases, development environments, and batch processing jobs. It also allows us to easily create and manage virtual machines running Windows or Linux operating systems.
 
 
 ### Question 19
