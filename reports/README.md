@@ -129,7 +129,7 @@ Group: Awasome 43
 >
 > Answer:
 
-We used the Transformers pipeline as the basis of our project since we have been working with NLP to classify the data. However, other frameworks have been used such as PyTorch and the PyTorch Lightning library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
+The Transformers pipeline was used as the project basis while working with NLP to classify the data. However, other frameworks have been used such as PyTorch and the PyTorch Lightning library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
 
 ## Coding environment
 
@@ -174,32 +174,32 @@ To reply our environment you can just run the following command once you have in
 > *experiments.*
 > Answer:
 
-The overall structure from cookiecutter we've used is:
-.dvc: contain the configuration files for dvc, a version control system for machine learning projects.
-.gitignore: git ignore file, used to ignore files and directories that should not be tracked by git
+The overall structure from cookiecutter used was:
+.dvc: contain the configuration files for dvc, a version control system 
+.gitignore: git ignore file, used to ignore files and directories that shouldn't be tracked by git
 LICENSE: license file
-Makefile: a Makefile is a simple way to automate common tasks
+Makefile: simple way to automate common tasks
 README.md: contains information about the project
-requirements.txt: contains the project dependencies
+requirements.txt: project dependencies
 data.dvc: data version control file for dvc
-data/processed/test.pth: a processed data file for the test set
-data/processed/train.pth: a processed data file for the train set
-data/raw/: contains the raw data
-docs/: contains documentation files
-models/: contains the models and configurations
+data/processed/test.pth: processed data files (test set)
+data/processed/train.pth: processed data files (train set)
+data/raw/: raw data
+docs/: documentation files
+models/:  the models and configurations
 notebooks/: contains the project's notebooks which we didn’t use.
 outputs.dvc: outputs version control file for dvc
 predict.dockerfile: a file that contains instructions to build a container image
 pyproject.toml: a file that contains the project's dependencies
-references/: contains project references 
-reports/: contains the project's reports
-src/: contains the source code for the project which we used:
-src/features: to cbuild the features.
-src/models: to make the train model and the predict model, together with the config files for hydra and utils script for useful functions.
+references/: project references 
+reports/: project's reports
+src/: contains the source code for the project which we used
+src/features: to build the features
+src/models: to make the train model its prediction, together with the config files for hydra and utils script for useful functions.
 src/visualitzation: useful images of how our model performs. 
 test_environment.py: a script to test the environment
 tox.ini: configuration file for Tox, a tool for running tests in multiple Python environments
-trainer.dockerfile: a file that contains instructions to build a container image
+trainer.dockerfile: a file containing instructions to build a container image
 
 ### Question 6
 
@@ -487,7 +487,7 @@ So far we have trained the e2-medium machine types which provide 2 vCPUs, which 
 >
 > Answer:
 
-To deploy our model we managed to do it locally which turned out to work using FastAPI. Due to the time limitation, we did not manage to deploy our model on the cloud. First, to understand how FastAPI works, a function was built to create configuration files automatically by inserting the parameters as inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, this command can be inserted into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. As we were not able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data were used.
+To deploy our model we managed to do it locally using FastAPI. Due to the time limitation, we didn't manage to deploy it on the cloud. First, to understand how FastAPI works, a function was built to create configuration files automatically by inserting the parameters as inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, this command can be inserted into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. As we weren't able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data were used.
 
 ### Question 23
 
