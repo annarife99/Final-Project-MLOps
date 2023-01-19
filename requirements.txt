@@ -45,6 +45,7 @@ torchvision==0.14.1
 tqdm==4.64.1
 transformers==4.24.0
 wandb==0.13.9
+yaml==0.2.5
 python-dotenv==0.21.0
 omegaconf==2.3.0
 scikit-learn==1.1.3

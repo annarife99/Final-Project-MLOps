@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Dict
 
 import hydra
+import yaml
 import numpy as np
 import pandas as pd
 import pytorch_lightning as pl
@@ -25,7 +26,7 @@ from tqdm import tqdm
 from tqdm.notebook import tqdm
 from transformers import AutoConfig, AutoTokenizer, get_scheduler
 
-from src.data.dataset import CoronaTweets, create_dataloader
+# from src.data.dataset import CoronaTweets, create_dataloader
 # from src.data.clean_functions import preprocessText
 
 # @hydra.main(config_path="../../config", config_name="default_config.yaml")
@@ -38,14 +39,18 @@ def main(config: DictConfig) -> None:
     logger = logging.getLogger(__name__)
     logger.info("Start Training...")
 
-    _CURRENT_ROOT = os.path.abspath(os.path.dirname(__file__))  # root of current file
-    _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
-    _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root
+    # Load config file 
+    hparams = config.experiment
+    _PROJECT_ROOT = hparams["project_path"]
+    _SRC_ROOT = os.path.join(_PROJECT_ROOT, "src") 
+    # _CURRENT_ROOT = os.path.abspath(os.path.dirname(__file__))  # root of current file
+    # _SRC_ROOT = os.path.dirname(_CURRENT_ROOT)  # root of src
+    # _PROJECT_ROOT = os.path.dirname(_SRC_ROOT)  # project root  
     _PATH_RAW_DATA = os.path.join(_PROJECT_ROOT, "data/raw/")  # root of raw data folder
     _PATH_PROCESSED_DATA = os.path.join(_PROJECT_ROOT, "data/processed/")  # root of raw data folder
-    sys.path.append(_PROJECT_ROOT)
 
-    hparams = config.experiment
+    sys.path.append(_PROJECT_ROOT)
+    from src.data.dataset import CoronaTweets, create_dataloader
     torch.manual_seed(hparams["seed"])
 
     # client = secretmanager.SecretManagerServiceClient()
@@ -73,7 +78,6 @@ def main(config: DictConfig) -> None:
     modelName = models[2]
     max_len = hparams["max_len"]
     tokenizer = AutoTokenizer.from_pretrained(modelName)
-
     df_train = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, "df_train.csv"), nrows=100)
     df_test = pd.read_csv(os.path.join(_PATH_PROCESSED_DATA, "df_test.csv"), nrows=20)
 
@@ -246,10 +250,26 @@ if __name__ == "__main__":
 
     # not used in this stub but often useful for finding various files
     project_dir = Path(__file__).resolve().parents[2]
-
+    
     # find .env automagically by walking up directories until it's found, then
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())
+    conf_path = str(project_dir) + '/src/models/config/experiment/exp1.yaml'
+    
+    # Open the file in read mode
+    with open(conf_path, "r") as file:
+        # Load the data from the file
+        data = yaml.load(file, Loader=yaml.FullLoader)
+
+    # Modify the data
+    data["project_path"] = str(project_dir)
+    # project_path: NotDefined
+    # Open the file in write mode
+    with open(conf_path, "w") as file:
+        # Write the modified data back to the file
+        yaml.dump(data, file)
+    
+
 
     main()
     print("End")

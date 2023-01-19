@@ -1,6 +1,6 @@
-# @package _group_
-lr: 2e-5
 batch_size: 8
-n_epochs: 1
+lr: 2e-5
 max_len: 128
+n_epochs: 1
+project_path: /home/alexabades/Final-Project-MLOps
 seed: 123
