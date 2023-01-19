@@ -1,0 +1,46 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.10.8",
+    "heartbeatAt": "2023-01-19T15:56:25.198310",
+    "startedAt": "2023-01-19T15:56:22.308927",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--reload",
+        "--port",
+        "8000",
+        "main_app:app"
+    ],
+    "state": "running",
+    "program": "/opt/anaconda3/envs/MLOps_Project/bin/uvicorn",
+    "git": {
+        "remote": "https://github.com/annarife99/Final-Project-MLOps.git",
+        "commit": "283cd6e0b0b87ab9b45cea36bc05f8251c8ce7fb"
+    },
+    "email": "annarife99@gmail.com",
+    "root": "/Users/annarife/Documents/Final-Project-MLOps",
+    "host": "MacBook-Pro-de-Anna.local",
+    "username": "annarife",
+    "executable": "/opt/anaconda3/envs/MLOps_Project/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 2300,
+        "min": 2300,
+        "max": 2300
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2300,
+            "min": 2300,
+            "max": 2300
+        }
+    ],
+    "disk": {
+        "total": 931.546989440918,
+        "used": 23.699851989746094
+    },
+    "memory": {
+        "total": 16.0
+    }
+}

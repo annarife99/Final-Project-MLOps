@@ -38,6 +38,7 @@ def main():
     pd_file_train = pd_file_train.rename({'OriginalTweet': 'Reviews'}, axis='columns')
     pd_file_train['Sentiment']=pd_file_train['Sentiment'].replace({'Neutral':2, 'Positive':3,'Extremely Positive':4, 'Extremely Negative':0,'Negative':1})
     pd_file_train['Sentiment']=pd_file_train['Sentiment'].astype(int)
+    pd_file_train=pd_file_train.sample(frac=1)
     pd_file_train = pd_file_train.reset_index(drop=True)
     pd_file_train.isnull().sum()
     pd_file_train.to_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_train.csv'))
@@ -47,6 +48,7 @@ def main():
     pd_file_test = pd_file_test.rename({'OriginalTweet': 'Reviews'}, axis="columns")
     pd_file_test['Sentiment']=pd_file_test['Sentiment'].replace({'Neutral':2, 'Positive':3,'Extremely Positive':4, 'Extremely Negative':0,'Negative':1})
     pd_file_test['Sentiment']=pd_file_test['Sentiment'].astype(int)
+    pd_file_test=pd_file_test.sample(frac=1)
     pd_file_test = pd_file_test.reset_index(drop=True)
 
     pd_file_test.to_csv(os.path.join(_PATH_PROCESSED_DATA, 'df_test.csv'))
