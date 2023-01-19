@@ -516,7 +516,7 @@ As we were not able to deploy the model using the cloud services, we could not t
 >
 > Answer:
 
---- question 23 fill here ---
+Unluckly, we did not manage to implement monitoring of our deployed model due to a lack of time. However, we did investigate how it would helo ti improve the longevity of our deployed model. For instance, 
 
 ### Question 24
 
