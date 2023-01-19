@@ -148,27 +148,21 @@ For our project work, we use the Transformers pipeline as the basis of our proje
 >
 > Answer:
 
-Some packages were installed using pip, such as nltk, pytorch-lightning, and matplotlib, and others were installed using conda, such as torch and torchvision. The package managers allow for easy installation, updating and uninstalling of packages, also it helps in resolving dependencies. For this reason, we’ve choose to use conda as primarily package manager.  
+Some packages were installed using pip, such as nltk and matplotlib, and others were installed using conda, such as torch and torchvision. The package managers allow for easy installation, updating and uninstalling of packages, also it helps in resolving dependencies. For this reason, conda was used as primarily package manager.  
 To get the list of the packages installed with pip we used:
 pip list --format=freeze > <pipfileName>.txt 
-instead of:
-pip freeze > <filename>
+instead of: `pip freeze > <filename>`
 To remove odd path references and just keep the package and the version we used. 
-To get the conda list we used: 
-conda list –explicit >  <condafileName>.txt
-
-Then we used:
-cat <condafileName>.txt >> <pipfileName>.txt 
-To join both requirements. 
-
+To get the conda list we used: `conda list –explicit >  <condafileName>.txt`
+Then we used:`cat <condafileName>.txt >> <pipfileName>.txt` To join both requirements. 
 Once we had both requirements in a list we checked for the essential ones, as pip freeze gives all the packages you had installed using pip management. 
 To reply our environment you can just run the following command once you have installed python and conda. 
 
-conda create -n myenv python=3.8.15
-conda activate myenv
-conda install pip 
-go to the directory you stored the file <condafileName>.txt
-python <condafileName>.txt 
+`conda create -n myenv python=3.8.15`
+`conda activate myenv`
+`conda install pip` 
+`go to the directory you stored the file <condafileName>.txt`
+`python <condafileName>.txt` 
 
 
 ### Question 5
