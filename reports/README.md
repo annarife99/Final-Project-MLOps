@@ -116,7 +116,7 @@ Group: Awasome 43
 >
 > Answer:
 
-> *s212784, s212487, s213237*
+*s212784, s212487, s213237*
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -250,7 +250,7 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
---- question 7 fill here ---
+We have implemented a total of 3 tests. First one, is primarily testing that training and testing data has the expected shape, and if each datapoint has the expected structure. It also checks that at least 5000 (train) and 500 (test) of each label are included in the data. Second file, tests if the output of the model matches the expected shape, when inputing sample data with the same shape as our data. Finally, last one kind of tests that the main idea behind the training file is done as expected, with sample hyperparameters for learning rate, batch size...
 
 ### Question 8
 
@@ -265,7 +265,7 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage can be seen as a measure of how much of the source code of a program has been executed during testing. For example, if our program has 100 lines of code and 80 of them have been executed during testing, the code coverage would be 80%. In our case, due to a lack of time, we obtain he total code coverage of our code is X%. 
 
 ### Question 9
 
@@ -280,7 +280,9 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
---- question 9 fill here ---
+Each of the three members has implemented changes in the project while always using a secondary personal branch. Every time a significant change was implemented a pull request to the main branch was created, so each of us could pull the changes from the main branch and work from there again. Still not super familiar with how should be the best approach when using branches, at least we got aware of how important is their usage in order to prevent messing up with all the code in the main directory.
+
+So far we have just created branches from the main branch, which gives kind of a really simple structure, but it could be useful to create sub-branches of the already existing branches when aiming to apply more complex and significant changes from the main branch, that should be divided in different subtasks.
 
 ### Question 10
 
@@ -319,7 +321,7 @@ When using Git and dvc together, we have improved our project in several ways:
 >
 > Answer:
 
---- question 11 fill here ---
+So far we have just had time to implement unittesting continuous integration everytime a push was being made to the main repository. 
 
 Continuous integration (CI) is the practice of automatically building, testing, and deploying code changes. The goal is to detect and fix errors as early as possible in the development process, so that they can be identified and resolved before they become a major issue.
 
@@ -352,7 +354,7 @@ In summary, CI is a powerful tool that can help you ensure that your code is of 
 >
 > Answer:
 
---- question 12 fill here ---
+We have made use of config files, which inside the python script we call them in the following way: `@hydra.main(config_path="config", config_name="config.yaml")`. Get the hyparameters in the following way: `hparams = config.experiment`, and call each specific parameter like that: `batch_size = hparams["batch_size"]`. Therefore, we can just run an experiment specifying in the .yaml file which hyperparameters do we want, and the execute `python train_model.py`.
 
 ### Question 13
 
@@ -367,7 +369,11 @@ In summary, CI is a powerful tool that can help you ensure that your code is of 
 >
 > Answer:
 
---- question 13 fill here ---
+To handle reproducibility of experiments, all the hyperparameters have been defined in the .yaml file. Among all the hyperparameters defined, that allow the user to run the experiment with the exact same configuration, an hyperparameter called seed is defined also as 123.
+
+This parameter is called inside the train_model.py file to be use with `torch.manual_seed(hparams["seed"])` function, which sets the seed for the pseudorandom number generator used by the torch library.
+
+This allows to reproduce the same random numbers generated during the training and test phases of a model. This is useful when debugging, comparing different models and ensuring reproducibility of experiments.
 
 ### Question 14
 
@@ -414,7 +420,7 @@ In summary, CI is a powerful tool that can help you ensure that your code is of 
 >
 > Answer:
 
---- question 16 fill here ---
+We got most of the bugs by using Pycharm debugger, VScode debugger (depending on the member of the group) and a lot of patience. We did not have time to implement profiling, as it took us longer than expected to just make the code work without crashing. But we are aware that our code has important limitations, and among them, it takes quite long to make it run. Thus, with more time we would implement profiling to detect where is the bottleneck in our project and start optimizing code from there.
 
 ## Working in the cloud
 
@@ -495,7 +501,10 @@ So far we have trained the e2-medium machine types which provide 2 vCPUs, which 
 >
 > Answer:
 
---- question 22 fill here ---
+To deploy our model we managed to do it locally which turned out to work using FastAPI. Due to the time limitation, we did not manage to deploy our model on the cloud. 
+First, to make sure we have understood how FastAPI works, we created a function to create the configuration files automatically by inserting the parameters as the inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, we can insert this into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. 
+      
+As we were not able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data could be used.
 
 ### Question 23
 
