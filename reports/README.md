@@ -280,7 +280,7 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
---- question 9 fill here ---
+We have been using branches that contain code and files that were not present on other branches. This has been really useful since then we were able to work on the same project with different tasks. Each memmber had a branch that was working on in during the day, being able to add -> commit --> push all the changes on the branch. Then, at the end of the day, we made sure to merge everything to the main branch. 
 
 ### Question 10
 
