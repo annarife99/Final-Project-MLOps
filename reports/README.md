@@ -148,16 +148,12 @@ For our project work, we use the Transformers pipeline as the basis of our proje
 >
 > Answer:
 
-Some packages were installed using pip, such as nltk and matplotlib, and others were installed using conda, such as torch and torchvision. The package managers allow for easy installation, updating and uninstalling of packages, also it helps in resolving dependencies. For this reason, conda was used as primarily package manager.  
-To get the list of the packages installed with pip we used:
-pip list --format=freeze > <pipfileName>.txt 
-instead of: `pip freeze > <filename>`
-To remove odd path references and just keep the package and the version we used. 
+Some packages were installed using pip (nltk,matplotlib...) while others using conda (torch,torchvision...) The package managers allow easy installation, updating and uninstalling of packages and it helps in resolving dependencies. For that, conda was used as primarily package manager.  
+To get the list of the packages installed with pip we used: `pip list --format=freeze > <pipfileName>.txt`
 To get the conda list we used: `conda list –explicit >  <condafileName>.txt`
-Then we used:`cat <condafileName>.txt >> <pipfileName>.txt` To join both requirements. 
+Then we used:`cat <condafileName>.txt >> <pipfileName>.txt` to join both requirements. 
 Once we had both requirements in a list we checked for the essential ones, as pip freeze gives all the packages you had installed using pip management. 
 To reply our environment you can just run the following command once you have installed python and conda. 
-
 `conda create -n myenv python=3.8.15`
 `conda activate myenv`
 `conda install pip` 
@@ -276,9 +272,9 @@ The total code coverage can be seen as a measure of how much of the source code 
 >
 > Answer:
 
-Each of the three members has implemented changes in the project while always using a secondary personal branch. Every time a significant change was implemented a pull request to the main branch was created, so each of us could pull the changes from the main branch and work from there again. Still not super familiar with how should be the best approach when using branches, at least we got aware of how important is their usage in order to prevent messing up with all the code in the main directory.
+Each of the three members has implemented changes in the project while always using a secondary personal branch. Every time a significant change was implemented a pull request to the main branch was created, so each of us could pull the changes from the main branch and work from there again. Still not super familiar with how should be the best approach when using branches, we were at least aware of how important is their usage to prevent messing up with all the code in the main directory.
 
-So far we have just created branches from the main branch, which gives kind of a really simple structure, but it could be useful to create sub-branches of the already existing branches when aiming to apply more complex and significant changes from the main branch, that should be divided in different subtasks.
+So far we have just created branches from the main branch, which gives a simple structure, but it could be useful to create sub-branches of the already existing branches when aiming to apply more complex and significant changes from the main branch, that should be divided in different subtasks.
 
 ### Question 10
 
@@ -363,9 +359,7 @@ We have made use of config files, which inside the python script we call them in
 > Answer:
 
 To handle reproducibility of experiments, all the hyperparameters have been defined in the .yaml file. Among all the hyperparameters defined, that allow the user to run the experiment with the exact same configuration, an hyperparameter called seed is defined also as 123.
-
 This parameter is called inside the train_model.py file to be use with `torch.manual_seed(hparams["seed"])` function, which sets the seed for the pseudorandom number generator used by the torch library.
-
 This allows to reproduce the same random numbers generated during the training and test phases of a model. This is useful when debugging, comparing different models and ensuring reproducibility of experiments.
 
 ### Question 14
@@ -399,8 +393,8 @@ This allows to reproduce the same random numbers generated during the training a
 > Answer:
 
 Docker has been used to containerize our experiments and ensure reproducibility of results. In the two Dockerfiles created the dependencies and packages required for the experiment were specified.
-To run the Docker image, we first built the image using the `docker build -f trainer.dockerfile . -t trainer:latest` command. With this command build an image named "trainer".Next, to start a container from the built image, this command has been used:`docker run --name experiment1 trainer:latest`. 
-However, at this point we got some errors due to it was not able to find our python files in the following way: `from src.data.dataset import create_dataloader` indicating that even though we are able to start a container from the built image we fail to train the model due to this dependences we have not been able to solve. But we are aware of how important is to use Docker properly to manage dependencies and environment variables, and ensure that the experiments can be easily replicated by others.
+To run the Docker image, we first built the image using the `docker build -f trainer.dockerfile . -t trainer:latest` command. With this command, we built an image named "trainer". Next, to start a container from the built image, this command has been used:`docker run --name experiment1 trainer:latest`. 
+However, at this point we got some errors since it was not able to find our python files in the following way: `from src.data.dataset import create_dataloader` indicating that even though we are able to start a container from the built image we fail to train the model due to this dependences we have not been able to solve. But we are aware of how important is to use Docker properly to manage dependencies and environment variables and ensure that the experiments can be easily replicated by others to ensure reproducibility. 
 
 ### Question 16
 
@@ -433,9 +427,7 @@ We got most of the bugs by using Pycharm debugger, VScode debugger (depending on
 > Answer:
 
 We have used Google Cloud Buckets and Virtual Machines to improve the performance of our project.
-
-Google cloud buckets have allowed us to store and retrieve files such as raw and processed data and pretrained models. 
-Whereas Virtual machines have been used to create a virtualized environment and test the inference to our model. Virtual machines allow us to run multiple operating systems and applications on the same machine which has improves our project collaboration, testing and development. The main idea has been to clone exactly the project environment using the docker images.
+Google cloud buckets have allowed us to store and retrieve files such as raw and processed data and pretrained models, whereas Virtual machines have been used to create a virtualized environment and test the inference to our model. Virtual machines allowed also us to run multiple operating systems and applications on the same machine which has improves the collaboration, testing and development of the project. The main idea has been to clone exactly the project environment using the docker images in different computers by multiple users. 
 
 
 ### Question 18
