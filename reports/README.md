@@ -50,36 +50,36 @@ end of the project.
 
 ### Week 1
 
-* [x] Create a git repository
-* [x] Make sure that all team members have write access to the github repository
-* [x] Create a dedicated environment for you project to keep track of your packages
-* [x] Create the initial file structure using cookiecutter
-* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [x] Add a model file and a training script and get that running
-* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [x] Remember to comply with good coding practices (`pep8`) while doing the project
-* [x] Do a bit of code typing and remember to document essential parts of your code
-* [x] Setup version control for your data or part of your data
-* [x] Construct one or multiple docker files for your code
-* [x] Build the docker files locally and make sure they work as intended
-* [x] Write one or multiple configurations files for your experiments
-* [x] Used Hydra to load the configurations and manage your hyperparameters
+* [ ] Create a git repository
+* [ ] Make sure that all team members have write access to the github repository
+* [ ] Create a dedicated environment for you project to keep track of your packages
+* [ ] Create the initial file structure using cookiecutter
+* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [ ] Add a model file and a training script and get that running
+* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+* [ ] Do a bit of code typing and remember to document essential parts of your code
+* [ ] Setup version control for your data or part of your data
+* [ ] Construct one or multiple docker files for your code
+* [ ] Build the docker files locally and make sure they work as intended
+* [ ] Write one or multiple configurations files for your experiments
+* [ ] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [x] Write unit tests related to the data part of your code
-* [x] Write unit tests related to model construction and or model training
-* [x] Calculate the coverage.
-* [x] Get some continuous integration running on the github repository
-* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [ ] Write unit tests related to the data part of your code
+* [ ] Write unit tests related to model construction and or model training
+* [ ] Calculate the coverage.
+* [ ] Get some continuous integration running on the github repository
+* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [x] Create a FastAPI application that can do inference using your model
+* [ ] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
 * [ ] Deploy your model in GCP using either Functions or Run as the backend
 
@@ -94,9 +94,9 @@ end of the project.
 
 ### Additional
 
-* [x] Revisit your initial project description. Did the project turn out as you wanted?
-* [x] Make sure all group members have a understanding about all parts of the project
-* [x] Uploaded all your code to github
+* [ ] Revisit your initial project description. Did the project turn out as you wanted?
+* [ ] Make sure all group members have a understanding about all parts of the project
+* [ ] Uploaded all your code to github
 
 ## Group information
 
@@ -116,7 +116,7 @@ Group: Awasome 43
 >
 > Answer:
 
-*s212784, s212487, s213237*
+> *s212784, s212487, s213237*
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -129,7 +129,7 @@ Group: Awasome 43
 >
 > Answer:
 
-For our project work, we use the Transformers pipeline as the basis of our project since we have been working with NLP. Thus, the transformers based-model has been used to classify the data. However, other frameworks have been used such as PyTorch library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
+For our project work, we use the Transformers pipeline as the basis of our project since we have been working with NLP. Thus, the transformers based-model has been used to classify the data. However, other frameworks have been used such as PyTorch and the PyTorch Lightning library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
 
 ## Coding environment
 
@@ -250,7 +250,7 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
-We have implemented a total of 3 tests. First one, is primarily testing that training and testing data has the expected shape, and if each datapoint has the expected structure. It also checks that at least 5000 (train) and 500 (test) of each label are included in the data. Second file, tests if the output of the model matches the expected shape, when inputing sample data with the same shape as our data. Finally, last one kind of tests that the main idea behind the training file is done as expected, with sample hyperparameters for learning rate, batch size...
+--- question 7 fill here ---
 
 ### Question 8
 
@@ -265,7 +265,7 @@ We have implemented a total of 3 tests. First one, is primarily testing that tra
 >
 > Answer:
 
-The total code coverage can be seen as a measure of how much of the source code of a program has been executed during testing. For example, if our program has 100 lines of code and 80 of them have been executed during testing, the code coverage would be 80%. In our case, due to a lack of time, we obtain he total code coverage of our code is X%. 
+--- question 8 fill here ---
 
 ### Question 9
 
@@ -280,9 +280,7 @@ The total code coverage can be seen as a measure of how much of the source code 
 >
 > Answer:
 
-Each of the three members has implemented changes in the project while always using a secondary personal branch. Every time a significant change was implemented a pull request to the main branch was created, so each of us could pull the changes from the main branch and work from there again. Still not super familiar with how should be the best approach when using branches, at least we got aware of how important is their usage in order to prevent messing up with all the code in the main directory.
-
-So far we have just created branches from the main branch, which gives kind of a really simple structure, but it could be useful to create sub-branches of the already existing branches when aiming to apply more complex and significant changes from the main branch, that should be divided in different subtasks.
+--- question 9 fill here ---
 
 ### Question 10
 
@@ -297,7 +295,15 @@ So far we have just created branches from the main branch, which gives kind of a
 >
 > Answer:
 
---- question 10 fill here ---
+Data version control (dvc) have been used in the project to track two specific folders: data and output. The first one is where we have stored our raw data and our processed data and the second one was were we have stored the pretrained models, which in some cases where very large.
+We have linked the dvc with google drive as with GCP cloud storage so in this way we can store our data and models in a centralized location, and it can be easily accessible to our team or collaborator. 
+
+When using Git and dvc together, we have improved our project in several ways: 
+•	We have been hable to track the changes in the code, data, models and metrics together, making it easier to understand how the code and data have been changed over time.
+•	Everyone had access to the newest data and models, so everyone could try out the newer versions, making the collaboration much easier. 
+•	We could restore not only previous versions of the code but also from data and models.
+•	Finally, some of our models are large. Git doesn’t allow the storage of this large files. DVC makes it’s perfect to allocate this large files.
+
 
 ### Question 11
 
@@ -313,7 +319,7 @@ So far we have just created branches from the main branch, which gives kind of a
 >
 > Answer:
 
-So far we have just had time to implement unittesting continuous integration everytime a push was being made to the main repository. 
+--- question 11 fill here ---
 
 ## Running code and tracking experiments
 
@@ -332,7 +338,7 @@ So far we have just had time to implement unittesting continuous integration eve
 >
 > Answer:
 
-We have made use of config files, which inside the python script we call them in the following way: `@hydra.main(config_path="config", config_name="config.yaml")`. Get the hyparameters in the following way: `hparams = config.experiment`, and call each specific parameter like that: `batch_size = hparams["batch_size"]`. Therefore, we can just run an experiment specifying in the .yaml file which hyperparameters do we want, and the execute `python train_model.py`.
+--- question 12 fill here ---
 
 ### Question 13
 
@@ -347,11 +353,7 @@ We have made use of config files, which inside the python script we call them in
 >
 > Answer:
 
-To handle reproducibility of experiments, all the hyperparameters have been defined in the .yaml file. Among all the hyperparameters defined, that allow the user to run the experiment with the exact same configuration, an hyperparameter called seed is defined also as 123.
-
-This parameter is called inside the train_model.py file to be use with `torch.manual_seed(hparams["seed"])` function, which sets the seed for the pseudorandom number generator used by the torch library.
-
-This allows to reproduce the same random numbers generated during the training and test phases of a model. This is useful when debugging, comparing different models and ensuring reproducibility of experiments.
+--- question 13 fill here ---
 
 ### Question 14
 
@@ -398,7 +400,7 @@ This allows to reproduce the same random numbers generated during the training a
 >
 > Answer:
 
-We got most of the bugs by using Pycharm debugger, VScode debugger (depending on the member of the group) and a lot of patience. We did not have time to implement profiling, as it took us longer than expected to just make the code work without crashing. But we are aware that our code has important limitations, and among them, it takes quite long to make it run. Thus, with more time we would implement profiling to detect where is the bottleneck in our project and start optimizing code from there.
+--- question 16 fill here ---
 
 ## Working in the cloud
 
@@ -415,7 +417,11 @@ We got most of the bugs by using Pycharm debugger, VScode debugger (depending on
 >
 > Answer:
 
---- question 17 fill here ---
+We have used Google Cloud Buckets and Virtual Machines to improve the performance of our project.
+
+Google cloud buckets have allowed us to store and retrieve files such as raw and processed data and pretrained models. 
+Whereas Virtual machines have been used to create a virtualized environment and test the inference to our model. Virtual machines allow us to run multiple operating systems and applications on the same machine which has improves our project collaboration, testing and development. The main idea has been to clone exactly the project environment using the docker images.
+
 
 ### Question 18
 
@@ -430,7 +436,9 @@ We got most of the bugs by using Pycharm debugger, VScode debugger (depending on
 >
 > Answer:
 
---- question 18 fill here ---
+We used the compute engine to train our model, as it’s a big model with different hyperparameters and different size of dataset. 
+So far we have trained the e2-medium machine types which provide 2 vCPUs, which means that it can handle 2 concurrent threads of execution and has 4 GB of memory. This specifications are suitable for moderate CPU and memory workloads and it can be used for web servers, small databases, development environments, and batch processing jobs.
+
 
 ### Question 19
 
@@ -473,10 +481,7 @@ We got most of the bugs by using Pycharm debugger, VScode debugger (depending on
 >
 > Answer:
 
-To deploy our model we managed to do it locally which turned out to work using FastAPI. Due to the time limitation, we did not manage to deploy our model on the cloud. 
-First, to make sure we have understood how FastAPI works, we created a function to create the configuration files automatically by inserting the parameters as the inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, we can insert this into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. 
-      
-As we were not able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data could be used. 
+--- question 22 fill here ---
 
 ### Question 23
 
