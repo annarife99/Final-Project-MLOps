@@ -404,7 +404,9 @@ This allows to reproduce the same random numbers generated during the training a
 >
 > Answer:
 
---- question 15 fill here ---
+Docker has been used to containerize our experiments and ensure reproducibility of results. In the two Dockerfiles created the dependencies and packages required for the experiment were specified.
+To run the Docker image, we first built the image using the `docker build -f trainer.dockerfile . -t trainer:latest` command. With this command build an image named "trainer".Next, to start a container from the built image, this command has been used:`docker run --name experiment1 trainer:latest`. 
+However, at this point we got some errors due to it was not able to find our python files in the following way: `from src.data.dataset import create_dataloader` indicating that even though we are able to start a container from the built image we fail to train the model due to this dependences we have not been able to solve. But we are aware of how important is to use Docker properly to manage dependencies and environment variables, and ensure that the experiments can be easily replicated by others.
 
 ### Question 16
 
