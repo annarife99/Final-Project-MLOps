@@ -129,7 +129,7 @@ Group: Awasome 43
 >
 > Answer:
 
-For our project work, we use the Transformers pipeline as the basis of our project since we have been working with NLP. Thus, the transformers based-model has been used to classify the data. However, other frameworks have been used such as PyTorch and the PyTorch Lightning library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
+We used the Transformers pipeline as the basis of our project since we have been working with NLP to classify the data. However, other frameworks have been used such as PyTorch and the PyTorch Lightning library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
 
 ## Coding environment
 
@@ -174,32 +174,32 @@ To reply our environment you can just run the following command once you have in
 > *experiments.*
 > Answer:
 
-The overall structure from cookiecutter that we've used is:
-.dvc : contain the configuration files for dvc, a version control system for machine learning projects.
-.gitignore : git ignore file, used to ignore files and directories that should not be tracked by git
-LICENSE : license file for the project
-Makefile : a Makefile is a simple way to automate common tasks in a project.
-README.md : contains information about the project
-requirements.txt : contains the project dependencies
-data.dvc : data version control file for dvc
-data/processed/test.pth : a processed data file for the test set
-data/processed/train.pth : a processed data file for the train set
-data/raw/ : contains the raw data files
-docs/ : contains documentation files
-models/ : contains the models and their configurations
-notebooks/ : contains the project's notebooks which we didn’t use.
-outputs.dvc : outputs version control file for dvc
-predict.dockerfile : a file that contains instructions to build a container image
-pyproject.toml : a file that contains the project's dependencies
-references/ : contains references used in the project
-reports/ : contains the project's reports
-src/ : contains the source code for the project which we used:
+The overall structure from cookiecutter we've used is:
+.dvc: contain the configuration files for dvc, a version control system for machine learning projects.
+.gitignore: git ignore file, used to ignore files and directories that should not be tracked by git
+LICENSE: license file
+Makefile: a Makefile is a simple way to automate common tasks
+README.md: contains information about the project
+requirements.txt: contains the project dependencies
+data.dvc: data version control file for dvc
+data/processed/test.pth: a processed data file for the test set
+data/processed/train.pth: a processed data file for the train set
+data/raw/: contains the raw data
+docs/: contains documentation files
+models/: contains the models and configurations
+notebooks/: contains the project's notebooks which we didn’t use.
+outputs.dvc: outputs version control file for dvc
+predict.dockerfile: a file that contains instructions to build a container image
+pyproject.toml: a file that contains the project's dependencies
+references/: contains project references 
+reports/: contains the project's reports
+src/: contains the source code for the project which we used:
 src/features: to cbuild the features.
-src/models: to make the train model and the predict model, we have also the config files for hydra and some utils script for useful functions.
-src/visualitzation: We printed some useful images of how our model performs. 
-test_environment.py : a script to test the environment
-tox.ini : configuration file for Tox, a tool for running tests in multiple Python environments
-trainer.dockerfile : a file that contains instructions to build a container image
+src/models: to make the train model and the predict model, together with the config files for hydra and utils script for useful functions.
+src/visualitzation: useful images of how our model performs. 
+test_environment.py: a script to test the environment
+tox.ini: configuration file for Tox, a tool for running tests in multiple Python environments
+trainer.dockerfile: a file that contains instructions to build a container image
 
 ### Question 6
 
@@ -289,14 +289,13 @@ So far we have just created branches from the main branch, which gives a simple 
 >
 > Answer:
 
-Data version control (dvc) have been used in the project to track two specific folders: data and output. The first one is where we have stored our raw data and our processed data and the second one was were we have stored the pretrained models, which in some cases where very large.
+Data version control have been used in the project to track two specific folders: data and output. The first one is where we have stored our raw data and our processed data and the second one was were we have stored the pretrained models, which in some cases were very large.
 We have linked the dvc with google drive as with GCP cloud storage so in this way we can store our data and models in a centralized location, and it can be easily accessible to our team or collaborator. 
-
-When using Git and dvc together, we have improved our project in several ways: 
+When using Git and dvc together, the project has improved in several ways: 
 •	We have been hable to track the changes in the code, data, models and metrics together, making it easier to understand how the code and data have been changed over time.
 •	Everyone had access to the newest data and models, so everyone could try out the newer versions, making the collaboration much easier. 
 •	We could restore not only previous versions of the code but also from data and models.
-•	Finally, some of our models are large. Git doesn’t allow the storage of this large files. DVC makes it’s perfect to allocate this large files.
+•	Some of our models are large. Git doesn’t allow the storage of this large files. DVC makes it’s perfect to allocate this large files.
 
 
 ### Question 11
@@ -488,10 +487,7 @@ So far we have trained the e2-medium machine types which provide 2 vCPUs, which 
 >
 > Answer:
 
-To deploy our model we managed to do it locally which turned out to work using FastAPI. Due to the time limitation, we did not manage to deploy our model on the cloud. 
-First, to make sure we have understood how FastAPI works, we created a function to create the configuration files automatically by inserting the parameters as the inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, we can insert this into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. 
-      
-As we were not able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data could be used.
+To deploy our model we managed to do it locally which turned out to work using FastAPI. Due to the time limitation, we did not manage to deploy our model on the cloud. First, to understand how FastAPI works, a function was built to create configuration files automatically by inserting the parameters as inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, this command can be inserted into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. As we were not able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data were used.
 
 ### Question 23
 
@@ -506,7 +502,7 @@ As we were not able to deploy the model using the cloud services, we could not t
 >
 > Answer:
 
-Unluckly, we did not manage to implement monitoring of our deployed model due to a lack of time. However, we did investigate how it would helo ti improve the longevity of our deployed model. For instance, 
+Unluckly, we did not manage to implement monitoring of our deployed model due to a lack of time. However, we did investigate how it would help to improve the longevity of our deployed model. For instance, it can help to identify when its accuracy or performance starts to degrade and can indicate when the performance drops significantly. It can also be useful to detect data drift, seeing different data compared to the one it was trained on. Next, it can be used to idenity and fix errors easily to improve the reliability of the model and the overall performance by optimizing the cost. Overall, it is a crucial step for keeping the health of a deployed model, addressing issues before they become a major problem. 
 
 ### Question 24
 
