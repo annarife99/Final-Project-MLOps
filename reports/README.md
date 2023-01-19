@@ -575,3 +575,9 @@ Overall, while each component of the pipeline presented its own limitations, we 
 > Answer:
 
 Student s213237 has been in charge of the data analysis and implementation of the model itself, with the creation of hydra files. Also it has created docker files and implemented Continuous Integration unit testing.
+Student s212487 has been working with the prepartion of the dataset (building the raw and processed data) and helping with the model implementation and its prediction together with the experiment logging. Also, the student was in charge of model deployment using FastAPI.
+Student s212784 has been working with the project initialization, making sure all the requirements were met, with the data version controls and docker files and working with the cloud setup and computing. 
+All members contributed really active on all the tasks, working together with the conda environment, code structure and project initialization and git management. Team work was easily distributed and discussed and all challenges were solved joinly.  
+      
+      
+      
