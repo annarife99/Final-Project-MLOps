@@ -321,6 +321,20 @@ When using Git and dvc together, we have improved our project in several ways:
 
 --- question 11 fill here ---
 
+Continuous integration (CI) is the practice of automatically building, testing, and deploying code changes. The goal is to detect and fix errors as early as possible in the development process, so that they can be identified and resolved before they become a major issue.
+
+One common type of CI is unit testing, which is used to test individual units of code to ensure that they are working correctly. This has been done using the pytest framework. 
+
+Another type of CI is linting, which is used to check code for formatting and style errors. This can be done using a tool like Flake8 or Pylint, and can also be automated using a CI service.
+
+In addition to unit testing and linting, it's also common to test multiple operating systems and python versions. This can be done using a tool like Docker, which allows you to run your tests in isolated environments with different configurations. This ensure that your code is compatible with a wide range of systems and that it is running as expected.
+
+Caching is also a common practice in CI, it allows to save time by reusing the same dependencies, build artifacts or test results. It can be implemented using a caching service like GitHub Actions Caches, which allows to use the same dependencies across multiple jobs and workflows and save time.
+
+Here is an example of a GitHub Action workflow that runs tests on multiple versions of Python: https://github.com/actions/python-versions
+
+In summary, CI is a powerful tool that can help you ensure that your code is of high quality and that it is compatible with a wide range of systems. It involves automating the process of building, testing, and deploying code changes, and can be customized to suit your specific needs.
+
 ## Running code and tracking experiments
 
 > In the following section we are interested in learning more about the experimental setup for running your code and
