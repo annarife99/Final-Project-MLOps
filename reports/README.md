@@ -267,7 +267,7 @@ We have implemented a total of 3 tests. First one, is primarily testing that tra
 
 The total code coverage can be seen as a measure of how much of the source code of a program has been executed during testing. For example, if our program has 100 lines of code and 80 of them have been executed during testing, the code coverage would be 80%. In our case, due to a lack of time, we obtained that the total code coverage of our code is of 20% as seen in the picture below. 
       
-<img src='figure/coverage.png' width='25'>
+<img src='figures/coverage.png' width='25'>
 
 ### Question 9
 
