@@ -517,7 +517,7 @@ Unluckly, we did not manage to implement monitoring of our deployed model due to
 >
 > Answer:
 
---- question 24 fill here ---
+We could not take advantage of the credits available since we did not success in running the experiment o
 
 ## Overall discussion of project
 
