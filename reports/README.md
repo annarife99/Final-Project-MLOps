@@ -377,8 +377,11 @@ This allows to reproduce the same random numbers generated during the training a
 > Answer:
 
 ![this figure](figures/chart.png)
-![this figure](figures/system.png)
+As seen in the first image we can track the training and evaluation losses and accuracies through all the steps. In case we had a changing learning rate we could also have tracked that.  
+      
+![this figure](figures/system.png)    
 ![this figure](figures/system2.png)
+In this second and third image, we were able to track the system resources we were using. This could be use to be see if we could optimize the model each time we run the model. 
 
 ### Question 15
 
