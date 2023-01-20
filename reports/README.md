@@ -538,7 +538,12 @@ We could not take advantage of the credits available since we did not success in
 >
 > Answer:
 
---- question 25 fill here ---
+The MLOps pipeline followed in this project consist on a set of processes and tools that are used to build, test, deploy, and monitor a machine learning model in a production environment. The pipeline typically includes several key components, including data storage, model training and evaluation, experiment tracking, and deployment.
+The pipeline starts with data storage, where the data is stored either locally or remotely. In this example, GCP Bucket is used for remote data storage, and DVC is used to version and manage the data. This allows for easy access to the data for all pipeline stages, and also allows for the data to be easily versioned and tracked.
+Next, the pipeline moves to the model training and evaluation stage, where the data is used to train and evaluate machine learning models. In this example, Python is used as the programming language, with requirements managed using conda. PyTorch is used as the machine learning framework, and Hydra is used to manage the configuration of the pipeline. The Hydra configuration files provide a flexible way to manage the pipeline, allowing for easy experimentation and modification.
+Experiment tracking is an important part of any MLOps pipeline, and in this example, Weights & Biases (W&B) is used to track and analyze the results of different runs. W&B allows for easy logging of metrics, model artifacts, and input/output data, and provides a web-based interface for visualizing and comparing the results of different runs.
+Once the model is trained and evaluated, it is deployed to a production environment. In this example, Git and Github Actions are used for version control and automated pipeline management, and the pipeline is deployed to GCP Compute Engine and Cloud Run. The model is wrapped in a container using container registry and deployed to cloud run, which allows for easy scaling and management. FastAPI is used as the web framework to serve the model.
+Finally, the pipeline includes monitoring and logging, where GCP logging is used to track the performance of the deployed model and to detect and diagnose any issues that may arise. This allows for quick identification and resolution of any problems, and ensures that the model remains highly available and performant in a production environment.
 
 ### Question 26
 
