@@ -517,7 +517,7 @@ Unluckly, we did not manage to implement monitoring of our deployed model due to
 >
 > Answer:
 
-We could not take advantage of the credits available since we did not success in running the experiment o
+We could not take advantage of the credits available since we did not success in running the experiment on the cloud. However, we are aware that the most expensive service when running a model in the GCP is likely to be using a GPU for training. Other potential costs to consider include storage for data and files and network bandwith for data transfer. Additionally, depending on the complexity of the model and the size of dataset, the cost could be affected by the number of CPU and GPU hours required. 
 
 ## Overall discussion of project
 
