@@ -453,7 +453,8 @@ As we could specify our computing needs, so far we have trained the e2-medium ma
 >
 > Answer:
 
-We have created one bucket as our dataset was not to heavy. [this figure](figures/bucket.png)
+![this figure](figures/bucket.png)
+We have created one bucket as our dataset was not to heavy. 
 Ideally we should have created at least 2 buckets, one public and one private, so if someone modifies by error some of the data we will still have our raw data. In this case, as the raw data was prvided from kaggle and it was not heavy we can still download it. Aditionally, we have a copy of our data in google drive. 
 
 ### Question 20
