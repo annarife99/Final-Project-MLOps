@@ -464,7 +464,7 @@ Ideally we should have created at least 2 buckets, one public and one private, s
 >
 > Answer:
 
-![my_image](figures/container.png)
+![my_image](figures/container.jpg)
 
 ### Question 21
 
@@ -473,7 +473,7 @@ Ideally we should have created at least 2 buckets, one public and one private, s
 >
 > Answer:
 
-![my_image](figures/build_cloud.png)
+![my_image](figures/build_cloud.jpg)
 
 ### Question 22
 
