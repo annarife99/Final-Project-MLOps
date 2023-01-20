@@ -50,36 +50,36 @@ end of the project.
 
 ### Week 1
 
-* [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
-* [ ] Create a dedicated environment for you project to keep track of your packages
-* [ ] Create the initial file structure using cookiecutter
-* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [ ] Add a model file and a training script and get that running
-* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
-* [ ] Do a bit of code typing and remember to document essential parts of your code
-* [ ] Setup version control for your data or part of your data
-* [ ] Construct one or multiple docker files for your code
-* [ ] Build the docker files locally and make sure they work as intended
-* [ ] Write one or multiple configurations files for your experiments
-* [ ] Used Hydra to load the configurations and manage your hyperparameters
+* [x] Create a git repository
+* [x] Make sure that all team members have write access to the github repository
+* [x] Create a dedicated environment for you project to keep track of your packages
+* [x] Create the initial file structure using cookiecutter
+* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [x] Add a model file and a training script and get that running
+* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project
+* [x] Do a bit of code typing and remember to document essential parts of your code
+* [x] Setup version control for your data or part of your data
+* [x] Construct one or multiple docker files for your code
+* [x] Build the docker files locally and make sure they work as intended
+* [x] Write one or multiple configurations files for your experiments
+* [x] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [x] Write unit tests related to the data part of your code
+* [x] Write unit tests related to model construction and or model training
+* [x] Calculate the coverage.
+* [x] Get some continuous integration running on the github repository
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [x] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
 * [ ] Deploy your model in GCP using either Functions or Run as the backend
 
@@ -94,9 +94,9 @@ end of the project.
 
 ### Additional
 
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Make sure all group members have a understanding about all parts of the project
-* [ ] Uploaded all your code to github
+* [x] Revisit your initial project description. Did the project turn out as you wanted?
+* [x] Make sure all group members have a understanding about all parts of the project
+* [x] Uploaded all your code to github
 
 ## Group information
 
@@ -116,7 +116,7 @@ Group: Awasome 43
 >
 > Answer:
 
-> *s212784, s212487, s213237*
+*s212784, s212487, s213237*
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -129,7 +129,7 @@ Group: Awasome 43
 >
 > Answer:
 
-For our project work, we use the Transformers pipeline as the basis of our project since we have been working with NLP. Thus, the transformers based-model has been used to classify the data. However, other frameworks have been used such as PyTorch and the PyTorch Lightning library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
+The Transformers pipeline was used as the project basis while working with NLP to classify the data. However, other frameworks have been used such as PyTorch and the PyTorch Lightning library to be able to provide the necessary tools for building and training the NLP model using the "model" module. We also used the AdamW optimizer from PyTorch for optimization and PyTorch's built-in loss functions for computing the loss, together with scheduler provided by PyTorch for learning rate scheduling. Additionally, we used the hydra library to import the configurations from a yaml file, the transformers library for tokenization, the pandas and NumPy libraries for data manipulation, the wandb library for logging, the sklearn library for metrics, the tqdm library for progress bars, the click library to create a command-line interface, the logging library to log progress, the dotenv library to load environment variables, the pathlib library to work with file paths, the os library to join paths and the torch library for CUDA support. Finally, we used the Natural Language Toolkit (nltk) library which we used in preprocessing functions for text data such as removing emojis, numbers, punctuations, stop words, lower casing, lemmatizing the text and tokenization of text.
 
 ## Coding environment
 
@@ -148,27 +148,17 @@ For our project work, we use the Transformers pipeline as the basis of our proje
 >
 > Answer:
 
-Some packages were installed using pip, such as nltk, pytorch-lightning, and matplotlib, and others were installed using conda, such as torch and torchvision. The package managers allow for easy installation, updating and uninstalling of packages, also it helps in resolving dependencies. For this reason, we’ve choose to use conda as primarily package manager.  
-To get the list of the packages installed with pip we used:
-pip list --format=freeze > <pipfileName>.txt 
-instead of:
-pip freeze > <filename>
-To remove odd path references and just keep the package and the version we used. 
-To get the conda list we used: 
-conda list –explicit >  <condafileName>.txt
-
-Then we used:
-cat <condafileName>.txt >> <pipfileName>.txt 
-To join both requirements. 
-
+Some packages were installed using pip (nltk,matplotlib...) while others using conda (torch,torchvision...) The package managers allow easy installation, updating and uninstalling of packages and it helps in resolving dependencies. For that, conda was used as primarily package manager.  
+To get the list of the packages installed with pip we used: `pip list --format=freeze > <pipfileName>.txt`
+To get the conda list we used: `conda list –explicit >  <condafileName>.txt`
+Then we used:`cat <condafileName>.txt >> <pipfileName>.txt` to join both requirements. 
 Once we had both requirements in a list we checked for the essential ones, as pip freeze gives all the packages you had installed using pip management. 
 To reply our environment you can just run the following command once you have installed python and conda. 
-
-conda create -n myenv python=3.8.15
-conda activate myenv
-conda install pip 
-go to the directory you stored the file <condafileName>.txt
-python <condafileName>.txt 
+`conda create -n myenv python=3.8.15`
+`conda activate myenv`
+`conda install pip` 
+`go to the directory you stored the file <condafileName>.txt`
+`python <condafileName>.txt` 
 
 
 ### Question 5
@@ -184,32 +174,32 @@ python <condafileName>.txt
 > *experiments.*
 > Answer:
 
-The overall structure from cookiecutter that we've used is:
-.dvc : contain the configuration files for dvc, a version control system for machine learning projects.
-.gitignore : git ignore file, used to ignore files and directories that should not be tracked by git
-LICENSE : license file for the project
-Makefile : a Makefile is a simple way to automate common tasks in a project.
-README.md : contains information about the project
-requirements.txt : contains the project dependencies
-data.dvc : data version control file for dvc
-data/processed/test.pth : a processed data file for the test set
-data/processed/train.pth : a processed data file for the train set
-data/raw/ : contains the raw data files
-docs/ : contains documentation files
-models/ : contains the models and their configurations
-notebooks/ : contains the project's notebooks which we didn’t use.
-outputs.dvc : outputs version control file for dvc
-predict.dockerfile : a file that contains instructions to build a container image
-pyproject.toml : a file that contains the project's dependencies
-references/ : contains references used in the project
-reports/ : contains the project's reports
-src/ : contains the source code for the project which we used:
-src/features: to cbuild the features.
-src/models: to make the train model and the predict model, we have also the config files for hydra and some utils script for useful functions.
-src/visualitzation: We printed some useful images of how our model performs. 
-test_environment.py : a script to test the environment
-tox.ini : configuration file for Tox, a tool for running tests in multiple Python environments
-trainer.dockerfile : a file that contains instructions to build a container image
+The overall structure from cookiecutter used was:
+.dvc: contain the configuration files for dvc, a version control system 
+.gitignore: git ignore file, used to ignore files and directories that shouldn't be tracked by git
+LICENSE: license file
+Makefile: simple way to automate common tasks
+README.md: contains information about the project
+requirements.txt: project dependencies
+data.dvc: data version control file for dvc
+data/processed/test.pth: processed data files (test set)
+data/processed/train.pth: processed data files (train set)
+data/raw/: raw data
+docs/: documentation files
+models/:  the models and configurations
+notebooks/: contains the project's notebooks which we didn’t use.
+outputs.dvc: outputs version control file for dvc
+predict.dockerfile: a file that contains instructions to build a container image
+pyproject.toml: a file that contains the project's dependencies
+references/: project references 
+reports/: project's reports
+src/: contains the source code for the project which we used
+src/features: to build the features
+src/models: to make the train model its prediction, together with the config files for hydra and utils script for useful functions.
+src/visualitzation: useful images of how our model performs. 
+test_environment.py: a script to test the environment
+tox.ini: configuration file for Tox, a tool for running tests in multiple Python environments
+trainer.dockerfile: a file containing instructions to build a container image
 
 ### Question 6
 
@@ -250,7 +240,7 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
---- question 7 fill here ---
+We have implemented a total of 3 tests. First one, is primarily testing that training and testing data has the expected shape, and if each datapoint has the expected structure. It also checks that at least 5000 (train) and 500 (test) of each label are included in the data. Second file, tests if the output of the model matches the expected shape, when inputing sample data with the same shape as our data. Finally, last one kind of tests that the main idea behind the training file is done as expected, with sample hyperparameters for learning rate, batch size...
 
 ### Question 8
 
@@ -265,7 +255,9 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage can be seen as a measure of how much of the source code of a program has been executed during testing. For example, if our program has 100 lines of code and 80 of them have been executed during testing, the code coverage would be 80%. In our case, due to a lack of time, we obtained that the total code coverage of our code is of 20% as seen in the picture below, being quite low. We implemented tests to check the initialization of our model, the dataset being used and cleaning functions to preprocess all the tweets before model training. We are aware that we were missing the main part of the testing, being model training and model prediction due to a lack of time. 
+      
+<img src='figures/coverage.png' width='500'>
 
 ### Question 9
 
@@ -280,7 +272,9 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
---- question 9 fill here ---
+Each of the three members has implemented changes in the project while always using a secondary personal branch. Every time a significant change was implemented a pull request to the main branch was created, so each of us could pull the changes from the main branch and work from there again. Still not super familiar with how should be the best approach when using branches, we were at least aware of how important is their usage to prevent messing up with all the code in the main directory.
+
+So far we have just created branches from the main branch, which gives a simple structure, but it could be useful to create sub-branches of the already existing branches when aiming to apply more complex and significant changes from the main branch, that should be divided in different subtasks.
 
 ### Question 10
 
@@ -295,14 +289,13 @@ We used Black and isort packages with a default configuration. Some of are:
 >
 > Answer:
 
-Data version control (dvc) have been used in the project to track two specific folders: data and output. The first one is where we have stored our raw data and our processed data and the second one was were we have stored the pretrained models, which in some cases where very large.
+Data version control have been used in the project to track two specific folders: data and output. The first one is where we have stored our raw data and our processed data and the second one was were we have stored the pretrained models, which in some cases were very large.
 We have linked the dvc with google drive as with GCP cloud storage so in this way we can store our data and models in a centralized location, and it can be easily accessible to our team or collaborator. 
-
-When using Git and dvc together, we have improved our project in several ways: 
+When using Git and dvc together, the project has improved in several ways: 
 •	We have been hable to track the changes in the code, data, models and metrics together, making it easier to understand how the code and data have been changed over time.
 •	Everyone had access to the newest data and models, so everyone could try out the newer versions, making the collaboration much easier. 
 •	We could restore not only previous versions of the code but also from data and models.
-•	Finally, some of our models are large. Git doesn’t allow the storage of this large files. DVC makes it’s perfect to allocate this large files.
+•	Some of our models are large. Git doesn’t allow the storage of this large files. DVC makes it’s perfect to allocate this large files.
 
 
 ### Question 11
@@ -319,7 +312,18 @@ When using Git and dvc together, we have improved our project in several ways:
 >
 > Answer:
 
---- question 11 fill here ---
+So far we just have had time to implement unittesting continuous integration everytime a push was being made to the main repository. 
+
+Continuous integration (CI) is the practice of automatically building, testing, and deploying code changes. The goal is to detect and fix errors as early as possible in the development process, so that they can be identified and resolved before they become a major issue. 
+
+One common type of CI is unit testing, which is used to test individual units of code to ensure that they are working correctly. This has been done using pytest framework. So far this is the only type of CI that we have had time to implement, everytime a push was made to our main repository.
+
+An example of a triggered worflow can be found here:
+https://github.com/annarife99/Final-Project-MLOps/actions/runs/3957852424/jobs/6778719385
+
+It can be seen how it passes the Set up job, the Checkout, the Set up Python 3.8 and Install the dependencies, but it fails to run the tests due to some dependencies we have not been able to fix (even though the tests run locally without any problem).
+
+Moreover, CI could be use to also check code for formatting and style errors, or test multiple operating systems and python versions. This would be implemented in later stages with the aim to automate the process of building, testing, and deploying code changes, and costumize it so it suits our specific needs.
 
 ## Running code and tracking experiments
 
@@ -338,7 +342,7 @@ When using Git and dvc together, we have improved our project in several ways:
 >
 > Answer:
 
---- question 12 fill here ---
+We have made use of config files, which inside the python script we call them in the following way: `@hydra.main(config_path="config", config_name="config.yaml")`. Get the hyparameters in the following way: `hparams = config.experiment`, and call each specific parameter like that: `batch_size = hparams["batch_size"]`. Therefore, we can just run an experiment specifying in the .yaml file which hyperparameters do we want, and the execute `python train_model.py`.
 
 ### Question 13
 
@@ -353,7 +357,9 @@ When using Git and dvc together, we have improved our project in several ways:
 >
 > Answer:
 
---- question 13 fill here ---
+To handle reproducibility of experiments, all the hyperparameters have been defined in the .yaml file. Among all the hyperparameters defined, that allow the user to run the experiment with the exact same configuration, an hyperparameter called seed is defined also as 123.
+This parameter is called inside the train_model.py file to be use with `torch.manual_seed(hparams["seed"])` function, which sets the seed for the pseudorandom number generator used by the torch library.
+This allows to reproduce the same random numbers generated during the training and test phases of a model. This is useful when debugging, comparing different models and ensuring reproducibility of experiments.
 
 ### Question 14
 
@@ -385,7 +391,9 @@ When using Git and dvc together, we have improved our project in several ways:
 >
 > Answer:
 
---- question 15 fill here ---
+Docker has been used to containerize our experiments and ensure reproducibility of results. In the two Dockerfiles created the dependencies and packages required for the experiment were specified.
+To run the Docker image, we first built the image using the `docker build -f trainer.dockerfile . -t trainer:latest` command. With this command, we built an image named "trainer". Next, to start a container from the built image, this command has been used:`docker run --name experiment1 trainer:latest`. 
+However, at this point we got some errors since it was not able to find our python files in the following way: `from src.data.dataset import create_dataloader` indicating that even though we are able to start a container from the built image we fail to train the model due to this dependences we have not been able to solve. But we are aware of how important is to use Docker properly to manage dependencies and environment variables and ensure that the experiments can be easily replicated by others to ensure reproducibility. 
 
 ### Question 16
 
@@ -400,7 +408,7 @@ When using Git and dvc together, we have improved our project in several ways:
 >
 > Answer:
 
---- question 16 fill here ---
+We got most of the bugs by using Pycharm debugger and VScode debugger (depending on the member of the group) and a lot of patience. We did not have time to implement profiling, as it took us longer than expected to just make the code work without crashing. But we are aware that our code has important limitations, and among them, it takes quite long to make it run. Thus, with more time we would have implemented profiling to detect where is the bottleneck in our project and start optimizing code from there. Much could be done to improve and go deeper into this part if we had more time and if we did not have as much errors to solve at the beggining of this section. 
 
 ## Working in the cloud
 
@@ -418,9 +426,7 @@ When using Git and dvc together, we have improved our project in several ways:
 > Answer:
 
 We have used Google Cloud Buckets and Virtual Machines to improve the performance of our project.
-
-Google cloud buckets have allowed us to store and retrieve files such as raw and processed data and pretrained models. 
-Whereas Virtual machines have been used to create a virtualized environment and test the inference to our model. Virtual machines allow us to run multiple operating systems and applications on the same machine which has improves our project collaboration, testing and development. The main idea has been to clone exactly the project environment using the docker images.
+Google cloud buckets have allowed us to store and retrieve files such as raw and processed data and pretrained models, whereas Virtual machines have been used to create a virtualized environment and test the inference to our model. Virtual machines allowed also us to run multiple operating systems and applications on the same machine which has improves the collaboration, testing and development of the project. The main idea has been to clone exactly the project environment using the docker images in different computers by multiple users. 
 
 
 ### Question 18
@@ -436,8 +442,8 @@ Whereas Virtual machines have been used to create a virtualized environment and 
 >
 > Answer:
 
-We used the compute engine to train our model, as it’s a big model with different hyperparameters and different size of dataset. 
-So far we have trained the e2-medium machine types which provide 2 vCPUs, which means that it can handle 2 concurrent threads of execution and has 4 GB of memory. This specifications are suitable for moderate CPU and memory workloads and it can be used for web servers, small databases, development environments, and batch processing jobs.
+We used the Compute engine of GCP to train our model allowing us to create and run virtual machines on Google's infrastrcutrue as it is a big model with different hyperparameters and different size of dataset. 
+As we could specify our computing needs, so far we have trained the e2-medium machine types which provide 2 vCPUs, which means that it can handle 2 concurrent threads of execution and has 4 GB of memory. These specifications are suitable for moderate CPU and memory workloads and it can be used for web servers, small databases, development environments, and batch processing jobs. It also allows us to easily create and manage virtual machines running Windows or Linux operating systems.
 
 
 ### Question 19
@@ -482,7 +488,7 @@ Ideally we should have created at least 2 buckets, one public and one private, s
 >
 > Answer:
 
---- question 22 fill here ---
+To deploy our model we managed to do it locally using FastAPI. Due to the time limitation, we didn't manage to deploy it on the cloud. First, to understand how FastAPI works, a function was built to create configuration files automatically by inserting the parameters as inputs. Afterwards we deployed the model locally by using the functions (already built) to train the model. Again, the parameters were inserted as inputs by interacting with FastAPI. We also deployed the part to make predictions from the model which also turned out to work. To invoke the service the user should first log in and initialize wandb account. Then, this command can be inserted into the terminal: `uvicorn --reload --port 8000 main_app:app` which will launch an server at this page: `http://localhost:8000/`. To try out the model, the user can use the page `http://localhost:8000/docs`. There we can also see the curl command that could be also used. As we weren't able to deploy the model using the cloud services, we could not train the model using a lot of data and epochs, reason why we have obtained low accuracies. However, we expected them to improve if much iterations and training data were used.
 
 ### Question 23
 
@@ -497,7 +503,7 @@ Ideally we should have created at least 2 buckets, one public and one private, s
 >
 > Answer:
 
---- question 23 fill here ---
+Unluckly, we did not manage to implement monitoring of our deployed model due to a lack of time. However, we did investigate how it would help to improve the longevity of our deployed model. For instance, it can help to identify when its accuracy or performance starts to degrade and can indicate when the performance drops significantly. It can also be useful to detect data drift, seeing different data compared to the one it was trained on. Next, it can be used to idenity and fix errors easily to improve the reliability of the model and the overall performance by optimizing the cost. Overall, it is a crucial step for keeping the health of a deployed model, addressing issues before they become a major problem. 
 
 ### Question 24
 
@@ -546,7 +552,13 @@ Ideally we should have created at least 2 buckets, one public and one private, s
 >
 > Answer:
 
---- question 26 fill here ---
+The primary challenge in this project has been the newness of the material covered in the course. Despite this, we believe that the concepts and techniques learned will be highly beneficial for future projects and work tasks. In particular, one of the most challenging aspects was implementing the model itself. In retrospect, it may probably had been more advantageous to select a simpler model and devote more attention to the overall Machine Learning Operations pipeline.
+
+Additional difficulties were encountered in managing dependencies and requirements files, such as issues encountered when creating Docker images using the standard requirements.txt file. To address this, a separate requirements_docker.txt file was created.
+
+Furthermore, there were also difficulties encountered in utilizing data version control to manage all the data, particularly the results obtained from training the model.
+
+Overall, while each component of the pipeline presented its own limitations, we prioritized making the system work as a whole rather than focusing on perfecting one specific aspect. And even though there are still a lot of errors, this has provided us with a comprehensive understanding of the architecture of a Machine Learning Operations system, ensuring that we will not be starting from scratch when addressing all the limitations encountered in future.
 
 ### Question 27
 
@@ -563,4 +575,10 @@ Ideally we should have created at least 2 buckets, one public and one private, s
 >
 > Answer:
 
---- question 27 fill here ---
+Student s213237 has been in charge of the data analysis and implementation of the model itself, with the creation of hydra files. Also it has created docker files and implemented Continuous Integration unit testing.
+Student s212487 has been working with the prepartion of the dataset (building the raw and processed data) and helping with the model implementation and its prediction together with the experiment logging. Also, the student was in charge of model deployment using FastAPI.
+Student s212784 has been working with the project initialization, making sure all the requirements were met, with the data version controls and docker files and working with the cloud setup and computing. 
+All members contributed really active on all the tasks, working together with the conda environment, code structure and project initialization and git management. Team work was easily distributed and discussed and all challenges were solved joinly.  
+      
+      
+      
