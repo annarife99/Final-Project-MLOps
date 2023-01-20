@@ -83,6 +83,9 @@ test_environment:
 train:
 	python src/models/train_model.py 
 
+API:
+	uvicorn --reload --port 8000 main_app:app
+
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
