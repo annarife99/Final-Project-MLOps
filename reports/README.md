@@ -256,8 +256,8 @@ We have implemented a total of 3 tests. First one, is primarily testing that tra
 > Answer:
 
 The total code coverage can be seen as a measure of how much of the source code of a program has been executed during testing. For example, if our program has 100 lines of code and 80 of them have been executed during testing, the code coverage would be 80%. In our case, due to a lack of time, we obtained that the total code coverage of our code is of 20% as seen in the picture below, being quite low. We implemented tests to check the initialization of our model, the dataset being used and cleaning functions to preprocess all the tweets before model training. We are aware that we were missing the main part of the testing, being model training and model prediction due to a lack of time. 
-      
-<img src='figures/coverage.png' width='500'>
+
+![my_image](figures/coverage.png)
 
 ### Question 9
 
@@ -517,7 +517,7 @@ Unluckly, we did not manage to implement monitoring of our deployed model due to
 >
 > Answer:
 
-We could not take advantage of the credits available since we did not success in running the experiment o
+We could not take advantage of the credits available since we did not success in running the experiment on the cloud. However, we are aware that the most expensive service when running a model in the GCP is likely to be using a GPU for training. Other potential costs to consider include storage for data and files and network bandwith for data transfer. Additionally, depending on the complexity of the model and the size of dataset, the cost could be affected by the number of CPU and GPU hours required. 
 
 ## Overall discussion of project
 
@@ -538,7 +538,14 @@ We could not take advantage of the credits available since we did not success in
 >
 > Answer:
 
---- question 25 fill here ---
+![my_image](figures/mlops_overview_project.png)
+
+The MLOps pipeline followed in this project consist on a set of processes and tools that are used to build, test, deploy, and monitor a machine learning model in a production environment. The pipeline typically includes several key components, including data storage, model training and evaluation, experiment tracking, and deployment.
+The pipeline starts with data storage, where the data is stored either locally or remotely. In this example, GCP Bucket is used for remote data storage, and DVC is used to version and manage the data. This allows for easy access to the data for all pipeline stages, and also allows for the data to be easily versioned and tracked.
+Next, the pipeline moves to the model training and evaluation stage, where the data is used to train and evaluate machine learning models. In this example, Python is used as the programming language, with requirements managed using conda. PyTorch is used as the machine learning framework, and Hydra is used to manage the configuration of the pipeline. The Hydra configuration files provide a flexible way to manage the pipeline, allowing for easy experimentation and modification.
+Experiment tracking is an important part of any MLOps pipeline, and in this example, Weights & Biases (W&B) is used to track and analyze the results of different runs. W&B allows for easy logging of metrics, model artifacts, and input/output data, and provides a web-based interface for visualizing and comparing the results of different runs.
+Once the model is trained and evaluated, it is deployed to a production environment. In this example, Git and Github Actions are used for version control and automated pipeline management, and the pipeline is deployed to GCP Compute Engine and Cloud Run. The model is wrapped in a container using container registry and deployed to cloud run, which allows for easy scaling and management. FastAPI is used as the web framework to serve the model.
+Finally, the pipeline includes monitoring and logging, where GCP logging is used to track the performance of the deployed model and to detect and diagnose any issues that may arise. This allows for quick identification and resolution of any problems, and ensures that the model remains highly available and performant in a production environment.
 
 ### Question 26
 
