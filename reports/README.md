@@ -376,6 +376,13 @@ This allows to reproduce the same random numbers generated during the training a
 >
 > Answer:
 
+When conducting machine learning experiments, it is important to track a variety of metrics in order to evaluate the performance of a model and its computational cost. Some common metrics we decided to track in our model are the following:
+-Loss-train/Loss-eval: It measures the differnce between the predicted output of a model and the true output. A lower loss indicates a better performing model.
+-Accuracy-train/Accuracy-eval: It measures the proportion of correct predictions made by a model. A higher accuracy indicates a better performing model.
+Other measures that could be tracked to monitor the performance of the model such as precision and recall have not been included.
+
+However, we just have implemented the setup. When training the model it automatically uploads the above mentioned metrics in W&B, but the figures included below are not representative of how actually the model would perform when more training time and resources were available.
+      
 ![this figure](figures/chart.png)
 As seen in the first image we can track the training and evaluation losses and accuracies through all the steps. In case we had a changing learning rate we could also have tracked that.  
       
