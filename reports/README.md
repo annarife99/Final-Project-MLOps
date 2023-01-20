@@ -538,7 +538,7 @@ We could not take advantage of the credits available since we did not success in
 >
 > Answer:
 
-<img src='figures/mlops_overview_project.png' width='800'>
+![my_image](figures/mlops_overview_project.png)
 
 The MLOps pipeline followed in this project consist on a set of processes and tools that are used to build, test, deploy, and monitor a machine learning model in a production environment. The pipeline typically includes several key components, including data storage, model training and evaluation, experiment tracking, and deployment.
 The pipeline starts with data storage, where the data is stored either locally or remotely. In this example, GCP Bucket is used for remote data storage, and DVC is used to version and manage the data. This allows for easy access to the data for all pipeline stages, and also allows for the data to be easily versioned and tracked.
