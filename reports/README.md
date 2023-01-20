@@ -376,9 +376,9 @@ This allows to reproduce the same random numbers generated during the training a
 >
 > Answer:
 
-![this figure](figures/chart.jpg)
-![this figure](figures/system.jpg)
-![this figure](figures/system2.jpg)
+![this figure](figures/chart.png)
+![this figure](figures/system.png)
+![this figure](figures/system2.png)
 
 ### Question 15
 
